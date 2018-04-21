@@ -1,7 +1,17 @@
+//  AlertKit by 1GamerDev
+//  Licensed under DBAD
+//  Version 1.0.1
+//  Released 22 of April, 2018
 var AlertKit = {};
 AlertKit.init = function(__alert = false) {
     AlertKit.__proto__.prototype = {};
-    AlertKit.__proto__.prototype.random = function(len) {
+    AlertKit.__proto__.prototype.random = function(len = 0) {
+        if (typeof len != "number") {
+            return false;
+        }
+        if (len.toString().includes(".")) {
+            return false;
+        }
         var returnValue = "";
         var loop = true;
 
@@ -54,7 +64,13 @@ AlertKit.init = function(__alert = false) {
     delete AlertKit.init;
 }
 AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false) {
-    function AlertKitRandomNumberGenerator(len) {
+    function AlertKitRandomNumberGenerator(len = 0) {
+        if (typeof len != "number") {
+            return false;
+        }
+        if (len.toString().includes(".")) {
+            return false;
+        }
         var returnValue = "";
         var loop = true;
 
@@ -112,8 +128,6 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     if (AlertKit.alert.__proto__.removed == true) {
         delete AlertKit.alert.__proto__.removed;
     }
-    if (title == null && text == null && buttons == null)
-        return false;
     var map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -156,12 +170,18 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.0)";
         AlertKit.alert.__proto__.modal.style.top = "100%";
         setTimeout(function() {
-            document.body.removeChild(AlertKit.alert.__proto__.modalBG);
-            document.body.removeChild(AlertKit.alert.__proto__.modal);
+            if (document.body.contains(AlertKit.alert.__proto__.modalBG))
+                document.body.removeChild(AlertKit.alert.__proto__.modalBG);
+            if (document.body.contains(AlertKit.alert.__proto__.modal))
+                document.body.removeChild(AlertKit.alert.__proto__.modal);
         }, 500);
         if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
             delete AlertKit.__proto__.__AlertKit_button_functions;
         }
+    }
+    if (title == null && text == null && buttons == null) {
+        AlertKit.alert.close();
+        return false;
     }
     if (!document.body.contains(document.getElementsByClassName(AlertKit.__proto__.__alertModalClass)[document.getElementsByClassName(AlertKit.__proto__.__alertModalClass).length - 1])) {
         AlertKit.alert.__proto__.modalBG.style.height = "100%";
@@ -176,7 +196,11 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     }
     if (enableClickOut != false) {
         AlertKit.alert.__proto__.modalBG.onclick = function() {
-            AlertKit.alert.close();
+            try {
+                AlertKit.alert.close();
+            } catch (err) {
+
+            }
         };
     } else {
         AlertKit.alert.__proto__.modalBG.onclick = function() {
@@ -202,7 +226,17 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         //AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; max-height: 100px; overflow-y: scroll">` + text + `</div>`;
         AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 0 20px; max-height: 100px; overflow-y: scroll"><div style="height:20px"></div>` + text + `<div style="height:20px"></div></div>`;
     }
+    var allowButtons = false;
     if (buttons != null) {
+        if (buttons.length != 0) {
+            for (var i = 0; i < buttons.length; i++) {
+                if (buttons[i].length != 0 && typeof buttons[i] == "object") {
+                    allowButtons = true;
+                }
+            }
+        }
+    }
+    if (allowButtons) {
         //var buttonSection = `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">`;
         var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block"></div>`;
         AlertKit.__proto__.__AlertKit_button_functions = new Array();
@@ -213,7 +247,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                 } catch (err) {
                     //throw new Error(err);
                 }
-                if (typeof AlertKit.__AlertKit_button)
+                if (typeof AlertKit.__AlertKit_button == "string")
                     buttons[i][0] = buttons[i][0].replace(/[&<>"']/g, function(m) {
                         return map[m];
                     });
