@@ -6,7 +6,7 @@ a javascript alert
 
 AlertKit.init
 Sets up AlertKit for use.
-The only argument this function takes is __alert, which sets alert() to AlertKit.alert() if true.  default is false
+The only two arguments for this function are __alert and body_fix.  __alert sets alert() to AlertKit.alert() if true, (default is false), and body_fix sets <body>'s margin to 0 if true, which is the default.
 
 AlertKit.alert
 Displays an alert.
