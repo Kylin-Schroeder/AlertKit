@@ -1,9 +1,12 @@
 //  AlertKit by 1GamerDev
 //  Licensed under DBAD
-//  Version 1.0.1
+//  Version 1.0.2
 //  Released 22 of April, 2018
 var AlertKit = {};
-AlertKit.init = function(__alert = false) {
+AlertKit.init = function(__alert = false, body_fix = true) {
+    if (body_fix == true) {
+        document.body.style.margin = "0px";
+    }
     AlertKit.__proto__.prototype = {};
     AlertKit.__proto__.prototype.random = function(len = 0) {
         if (typeof len != "number") {
