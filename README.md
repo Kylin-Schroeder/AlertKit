@@ -15,5 +15,8 @@ Arguments:
 * HTML: boolean, if true, HTML will be allowed in the alert's title and text.  if false, you will not be able to write html in title or text.  to leave a new line if this is false, use \n.  default is false<br>
 Example:<br>
 AlertKit.alert("Example Alert", "Hello, world!", [["Google", \`location = "http://google.com/";\`, "f44242", "41cdf4", null, null, null, null, "250ms"]]);
+<br><br>
+AlertKit.alert.close<br>
+Dismisses an open alert.
 # Known Bugs
 None
