@@ -1,6 +1,6 @@
 //  AlertKit by 1GamerDev
 //  Licensed under DBAD
-//  Version 1.0.2
+//  Version 1.0.3
 //  Released 22 of April, 2018
 var AlertKit = {};
 AlertKit.init = function(__alert = false, body_fix = true) {
@@ -222,9 +222,9 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     AlertKit.alert.__proto__.modal.innerHTML = "";
     if (title != null)
         if (text == null && buttons != null)
-            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0">` + title + `</h3></div>`;
+            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">` + title + `</h3></div>`;
         else
-            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0">` + title + `</h3></div>`;
+            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">` + title + `</h3></div>`;
     if (text != null) {
         //AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; max-height: 100px; overflow-y: scroll">` + text + `</div>`;
         AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 0 20px; max-height: 100px; overflow-y: scroll"><div style="height:20px"></div>` + text + `<div style="height:20px"></div></div>`;
@@ -346,7 +346,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         }
     }
     if (AlertKit.alert.__proto__.modal.innerHTML == "") {
-        AlertKit.alert.__proto__.modal.innerHTML = `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0">Error</h3></div><div style="padding: 20px; max-height: 100px; overflow-y: scroll">The intended alert was not displayed because an unexpected error occurred.</div>`;
+        AlertKit.alert.__proto__.modal.innerHTML = `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Error</h3></div><div style="padding: 20px; max-height: 100px; overflow-y: scroll">The intended alert was not displayed because an unexpected error occurred.</div>`;
         AlertKit.alert.__proto__.modalBG.onclick = function() {
             AlertKit.alert.close();
         };
