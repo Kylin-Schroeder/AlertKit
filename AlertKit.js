@@ -1,14 +1,19 @@
 //  AlertKit by 1GamerDev
 //  Licensed under DBAD
-//  Version 1.0.4
+//  Version 1.0.5
 //  Released 22 of April, 2018
 var AlertKit = {};
 AlertKit.init = function(__alert = false, body_fix = true) {
     if (body_fix == true) {
         document.body.style.margin = "0px";
     }
-    function __AlertKitRandomNumberGenerator(len = 0) {
+
+    function __AlertKitRandomNumberGenerator(len = 1) {
         if (typeof len != "number") {
+            return false;
+        }
+        if (len <= 0 || len == null) {
+            console.error("Invalid length.");
             return false;
         }
         if (len.toString().includes(".")) {
@@ -23,21 +28,12 @@ AlertKit.init = function(__alert = false, body_fix = true) {
         }
         while (loop) {
             if (returnValue.length != len) {
-                returnValue = returnValue + returnRandomNumberAsString();
+                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
             } else {
                 loop = false;
             }
         }
-
-        function getValueToReturn() {
-            if (len <= 0 || len == null) {
-                console.error("Invalid length.");
-                return undefined;
-            } else {
-                return parseInt(returnValue);
-            }
-        }
-        return getValueToReturn();
+        return parseInt(returnValue);
     }
     AlertKit.__proto__.__alertModalClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__noScrollingClass = __AlertKitRandomNumberGenerator(15);
@@ -74,8 +70,13 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             document.body.classList.remove("__noScrolling_" + AlertKit.__proto__.__noScrollingClass);
         }
     }
-    function __AlertKitRandomNumberGenerator(len = 0) {
+
+    function __AlertKitRandomNumberGenerator(len = 1) {
         if (typeof len != "number") {
+            return false;
+        }
+        if (len <= 0 || len == null) {
+            console.error("Invalid length.");
             return false;
         }
         if (len.toString().includes(".")) {
@@ -90,21 +91,12 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         }
         while (loop) {
             if (returnValue.length != len) {
-                returnValue = returnValue + returnRandomNumberAsString();
+                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
             } else {
                 loop = false;
             }
         }
-
-        function getValueToReturn() {
-            if (len <= 0 || len == null) {
-                console.error("Invalid length.");
-                return undefined;
-            } else {
-                return parseInt(returnValue);
-            }
-        }
-        return getValueToReturn();
+        return parseInt(returnValue);
     }
     if (typeof AlertKit.init != "undefined") {
         AlertKit.init();
@@ -306,8 +298,8 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                             __colour__ = "#" + buttons[i][4];
                         }
                         /* else if (buttons[i][4] == "") {
-                                                    __colour__ = "transparent";
-                                                }*/
+                            __colour__ = "transparent";
+                        }*/
                     }
                     __selectedColour__ = __colour__;
                     if (typeof buttons[i][5] == "string") {
@@ -315,8 +307,8 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                             __selectedColour__ = "#" + buttons[i][5];
                         }
                         /* else if (buttons[i][5] == "") {
-                                                     __selectedColour__ = "transparent";
-                                                }*/
+                            __selectedColour__ = "transparent";
+                        }*/
                     }
                     __border__ = "transparent";
                     if (typeof buttons[i][6] == "string") {
