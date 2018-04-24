@@ -1,12 +1,19 @@
 //  AlertKit by 1GamerDev
 //  Licensed under DBAD
-//  Version 1.0.1
+//  Version 1.0.5
 //  Released 22 of April, 2018
 var AlertKit = {};
-AlertKit.init = function(__alert = false) {
-    AlertKit.__proto__.prototype = {};
-    AlertKit.__proto__.prototype.random = function(len = 0) {
+AlertKit.init = function(__alert = false, body_fix = true) {
+    if (body_fix == true) {
+        document.body.style.margin = "0px";
+    }
+
+    function __AlertKitRandomNumberGenerator(len = 1) {
         if (typeof len != "number") {
+            return false;
+        }
+        if (len <= 0 || len == null) {
+            console.error("Invalid length.");
             return false;
         }
         if (len.toString().includes(".")) {
@@ -21,24 +28,16 @@ AlertKit.init = function(__alert = false) {
         }
         while (loop) {
             if (returnValue.length != len) {
-                returnValue = returnValue + returnRandomNumberAsString();
+                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
             } else {
                 loop = false;
             }
         }
-
-        function getValueToReturn() {
-            if (len <= 0 || len == null) {
-                console.error("Invalid length.");
-                return undefined;
-            } else {
-                return parseInt(returnValue);
-            }
-        }
-        return getValueToReturn();
+        return parseInt(returnValue);
     }
-    AlertKit.__proto__.__alertModalClass = AlertKit.__proto__.prototype.random(15);
-    AlertKit.__proto__.__buttonClass = AlertKit.__proto__.prototype.random(15);
+    AlertKit.__proto__.__alertModalClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__noScrollingClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__buttonClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.buttonStyles = `<style>
 .__b` + AlertKit.__proto__.__buttonClass + ` {
     border: solid black 1px;
@@ -51,6 +50,8 @@ AlertKit.init = function(__alert = false) {
     -webkit-user-select: none;
 } .__b` + AlertKit.__proto__.__buttonClass + `:active {
     background: rgba(0, 0, 0, 0.1);
+} .__noScrolling_` + AlertKit.__proto__.__noScrollingClass + ` {
+    overflow: hidden !important;
 }</style>`;
     AlertKit.__proto__.__buttonClass = "__b" + AlertKit.__proto__.__buttonClass;
     document.head.innerHTML += AlertKit.buttonStyles;
@@ -59,13 +60,23 @@ AlertKit.init = function(__alert = false) {
     __alert ? (window.alert = function(a, b, c, d) {
         return AlertKit.alert(a, b, c, d);
     }) : void(0);
-    delete AlertKit.__proto__.prototype.random;
-    delete AlertKit.__proto__.prototype;
     delete AlertKit.init;
 }
 AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false) {
-    function AlertKitRandomNumberGenerator(len = 0) {
+    function __stopBodyScrolling(bool) {
+        if (bool === true) {
+            document.body.classList.add("__noScrolling_" + AlertKit.__proto__.__noScrollingClass);
+        } else {
+            document.body.classList.remove("__noScrolling_" + AlertKit.__proto__.__noScrollingClass);
+        }
+    }
+
+    function __AlertKitRandomNumberGenerator(len = 1) {
         if (typeof len != "number") {
+            return false;
+        }
+        if (len <= 0 || len == null) {
+            console.error("Invalid length.");
             return false;
         }
         if (len.toString().includes(".")) {
@@ -80,21 +91,12 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         }
         while (loop) {
             if (returnValue.length != len) {
-                returnValue = returnValue + returnRandomNumberAsString();
+                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
             } else {
                 loop = false;
             }
         }
-
-        function getValueToReturn() {
-            if (len <= 0 || len == null) {
-                console.error("Invalid length.");
-                return undefined;
-            } else {
-                return parseInt(returnValue);
-            }
-        }
-        return getValueToReturn();
+        return parseInt(returnValue);
     }
     if (typeof AlertKit.init != "undefined") {
         AlertKit.init();
@@ -113,6 +115,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             AlertKit.alert.__proto__.modal.style.top = "100%";
             setTimeout(function() {
                 document.body.removeChild(AlertKit.alert.__proto__.modal);
+                __stopBodyScrolling(false);
             }, 500);
             if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
                 delete AlertKit.__proto__.__AlertKit_button_functions;
@@ -174,6 +177,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                 document.body.removeChild(AlertKit.alert.__proto__.modalBG);
             if (document.body.contains(AlertKit.alert.__proto__.modal))
                 document.body.removeChild(AlertKit.alert.__proto__.modal);
+            __stopBodyScrolling(false);
         }, 500);
         if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
             delete AlertKit.__proto__.__AlertKit_button_functions;
@@ -219,12 +223,12 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     AlertKit.alert.__proto__.modal.innerHTML = "";
     if (title != null)
         if (text == null && buttons != null)
-            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0">` + title + `</h3></div>`;
+            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">` + title + `</h3></div>`;
         else
-            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0">` + title + `</h3></div>`;
+            AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">` + title + `</h3></div>`;
     if (text != null) {
         //AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 20px; max-height: 100px; overflow-y: scroll">` + text + `</div>`;
-        AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 0 20px; max-height: 100px; overflow-y: scroll"><div style="height:20px"></div>` + text + `<div style="height:20px"></div></div>`;
+        AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + `<div style="padding: 0 20px; max-height: 100px; overflow-y: scroll"><div style="height:20px;-webkit-user-select:none;"></div>` + text + `<div style="height:20px;-webkit-user-select:none;"></div></div>`;
     }
     var allowButtons = false;
     if (buttons != null) {
@@ -238,7 +242,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     }
     if (allowButtons) {
         //var buttonSection = `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">`;
-        var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block"></div>`;
+        var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div>`;
         AlertKit.__proto__.__AlertKit_button_functions = new Array();
         for (var i = 0; i < buttons.length; i++) {
             try {
@@ -262,7 +266,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                 var __border__ = "";
                 var __selectedBorder__ = "";
                 var __transition__ = "";
-                var __randnum__ = AlertKitRandomNumberGenerator(14);
+                var __randnum__ = __AlertKitRandomNumberGenerator(14);
                 if (typeof buttons[i][2] != "undefined") {
                     if (typeof buttons[i][2] == "string") {
                         if (buttons[i][2].length == 6) {
@@ -294,8 +298,8 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                             __colour__ = "#" + buttons[i][4];
                         }
                         /* else if (buttons[i][4] == "") {
-                                                    __colour__ = "transparent";
-                                                }*/
+                            __colour__ = "transparent";
+                        }*/
                     }
                     __selectedColour__ = __colour__;
                     if (typeof buttons[i][5] == "string") {
@@ -303,8 +307,8 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                             __selectedColour__ = "#" + buttons[i][5];
                         }
                         /* else if (buttons[i][5] == "") {
-                                                     __selectedColour__ = "transparent";
-                                                }*/
+                            __selectedColour__ = "transparent";
+                        }*/
                     }
                     __border__ = "transparent";
                     if (typeof buttons[i][6] == "string") {
@@ -326,24 +330,24 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                     if (typeof buttons[i][8] == "string") {
                         __transition__ = buttons[i][8];
                     }
-                    buttonSection = buttonSection + `<style>.__b_custom` + __randnum__ + ` { transition: ` + __transition__ + `; border: solid 1px ` + __border__ + ` !important; background: ` + __background__ + ` !important; color: ` + __colour__ + ` !important; } .__b_custom` + __randnum__ + `:active { transition: ` + __transition__ + `; border: solid 1px ` + __selectedBorder__ + ` !important; background: ` + __selectedBackground__ + ` !important; color: ` + __selectedColour__ + ` !important; }</style>`;
-                    buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + ` __b_custom` + __randnum__ + `" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `]() } catch(err) { console.log('%c[ERROR]%cAlertKit encountered an unexpected error. (' + err + ')', 'color: red'); }">` + buttons[i][0] + `</div>`;
+                    buttonSection = buttonSection + `<style>.__b_custom` + __randnum__ + ` { -webkit-user-select: none; transition: ` + __transition__ + `; border: solid 1px ` + __border__ + ` !important; background: ` + __background__ + ` !important; color: ` + __colour__ + ` !important; } .__b_custom` + __randnum__ + `:active { -webkit-user-select: none; transition: ` + __transition__ + `; border: solid 1px ` + __selectedBorder__ + ` !important; background: ` + __selectedBackground__ + ` !important; color: ` + __selectedColour__ + ` !important; }</style>`;
+                    buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + ` __b_custom` + __randnum__ + `" ontouchstart="" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `]() } catch(err) { console.log('%c[ERROR]%cAlertKit encountered an unexpected error. (' + err + ')', 'color: red'); }">` + buttons[i][0] + `</div>`;
                 } else {
-                    buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + `" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `]() } catch(err) { }">` + buttons[i][0] + `</div>`;
+                    buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + `" ontouchstart="" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `]() } catch(err) { }">` + buttons[i][0] + `</div>`;
                 }
             } catch (err) {
                 console.log('%c[ERROR]%cAlertKit encountered an unexpected error. (' + err + ')', 'color: red');
             }
         }
         //buttonSection = buttonSection + "</div>";
-        buttonSection = buttonSection + `<div style="width: 20px; display: inline-block"></div></div>`;
+        buttonSection = buttonSection + `<div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div></div>`;
         //if (buttonSection != `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"></div>`) {
-        if (buttonSection != `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block"></div><div style="width: 20px; display: inline-block"></div></div>`) {
+        if (buttonSection != `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div></div>`) {
             AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + buttonSection;
         }
     }
     if (AlertKit.alert.__proto__.modal.innerHTML == "") {
-        AlertKit.alert.__proto__.modal.innerHTML = `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0">Error</h3></div><div style="padding: 20px; max-height: 100px; overflow-y: scroll">The intended alert was not displayed because an unexpected error occurred.</div>`;
+        AlertKit.alert.__proto__.modal.innerHTML = `<div style="padding: 20px; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><h3 style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Error</h3></div><div style="padding: 20px; max-height: 100px; overflow-y: scroll">The intended alert was not displayed because an unexpected error occurred.</div>`;
         AlertKit.alert.__proto__.modalBG.onclick = function() {
             AlertKit.alert.close();
         };
@@ -355,6 +359,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     }
     document.body.appendChild(AlertKit.alert.__proto__.modal);
     setTimeout(function() {
+        __stopBodyScrolling(true);
         if (AlertKit.alert.__proto__.newModalBG) {
             AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.6)";
         }

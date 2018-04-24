@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <title>AlertKit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="AlertKit.js"></script>
+</head>
+
+<body style="margin: 0">
+    <style>
+        .m {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 300ms;
+            text-align: left;
+            cursor: pointer;
+            -webkit-user-select: none;
+            border-radius: 5px;
+            background: #F7F7F7;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .m:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            font-family: sans-serif;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.0);
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            margin-top: 0px;
+            margin-bottom: 3px;
+        }
+    </style>
+
+
+    <h1 style="padding: 15px 15px 0 15px;">AlertKit</h1>
+
+
+
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!');">
+            <h2>Alert</h2>
+            <text>Basic alert.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Hello, world!');">
+            <h2>Title</h2>
+            <text>Alert containing only a title.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert(null, 'Hello, world!');">
+            <h2>Text</h2>
+            <text>Alert containing only text.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()'], ['Google', 'window.open(`http://google.com/`)']]);">
+            <h2>Alert with Buttons</h2>
+            <text>An alert with the default button style.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()', 'FF0000', null, null, 'F0F3F4', null, null, '150ms'], ['Google', 'window.open(`http://google.com/`)', 'FFFFFF', 'F0F3F4', '0000FF', null, '0000FF']])">
+            <h2>Alert with Custom Buttons</h2>
+            <text>An alert with custom button styles.</text>
+        </div>
+    </div>
+
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert(null, null, [['Dismiss', 'AlertKit.alert.close()']]);">
+            <h2>Buttons</h2>
+            <text>Alert containing only buttons.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Hello, world!', null, [['Dismiss', 'AlertKit.alert.close()']]);">
+            <h2>Title and Buttons</h2>
+            <text>Alert containing only a title and buttons.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert(null, 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()']]);">
+            <h2>Text and Buttons</h2>
+            <text>Alert containing only text and buttons.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()']], false);">
+            <h2>Alert without Click-Out</h2>
+            <text>An alert which doesn't let the user click the background to dismiss it.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', '<i>Hello, world!</i>', [['Dismiss', 'AlertKit.alert.close()']], null, true);">
+            <h2>Alert with HTML</h2>
+            <text>An alert which can contain HTML.</text>
+        </div>
+    </div>
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Demo', 'Click the button below to call AlertKit.alert again.', [['Call', 'AlertKit.alert(`Complete`, `Click the background of this alert to dismiss.`)']]);">
+            <h2>Multiple calls</h2>
+            <text>See how multiple AlertKit.alert calls are handled.</text>
+        </div>
+    </div>
+</body>
+
+</html>
