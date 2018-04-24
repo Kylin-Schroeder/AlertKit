@@ -7,18 +7,25 @@ A Javascript Alert Framework.
 
 `Sets up AlertKit for use.`
 
-Parameters | What It Does | Default Value
----------- | ------------ | --------------
-`__alert`  | `sets alert() to AlertKit.alert() if true` | `false`
-`body_fix` | `sets <body>'s margin to 0 if true` | `true`
-`nef` | `priorities alerts yet to show up while delaying new alerts if true` | `false`
+Parameters | Type | Purpose | Default Value
+---------- | ---- | ------------ | --------------
+`__alert`  | `boolean` | `sets alert() to AlertKit.alert() if true` | `false`
+`body_fix` | `boolean` | `sets <body>'s margin to 0 if true` | `true`
+`nef` | `boolean` | `priorities alerts yet to show up while delaying new alerts if true` | `false`
 
+### AlertKit.read
+
+`Returns class names in use by AlertKit.`
+
+Parameters | Type | Purpose
+---------- | ---- | -------
+`what`  | `string` or `number` | `class index / static name`
 
 ### AlertKit.alert
 
 `Displays an alert.`
 
-Parameters | Type | What It Does | Default Value
+Parameters | Type | Purpose | Default Value
 --------- | ---- | ------------ | -------------
 `title` | `string` | `sets the title of the alert` | `null`
 `text`  | `string` | `sets the text of the alert` | `null`
