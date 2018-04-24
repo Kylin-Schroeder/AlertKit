@@ -8,7 +8,9 @@
 <body>
 
 <div class="container">
-<a href="#" class="button" onclick="runExample()">Show alert</a>
+	<h2>AlertKit</h2>
+<a href="#" class="button" onclick="runExample()">Basic Alert + button</a>
+<a href="#" class="button" onclick="runExample2()">Multiple Buttons</a>
 </div>
 
 <script type="text/javascript" src="../AlertKit.js"></script>
@@ -16,6 +18,13 @@
 function runExample() {
 	AlertKit.alert("Example Alert", "Hello, world!", [
 	  ["Google", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"]
+	]);
+}
+
+function runExample2() {
+	AlertKit.alert("Example Alert", "Hello, world!", [
+	  ["Google", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"],
+	  ["Apple", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"]
 	]);
 }
 </script>
