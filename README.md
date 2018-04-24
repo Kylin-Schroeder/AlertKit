@@ -16,9 +16,7 @@ Parametar | Type | What it does | default value
 --------- | ---- | ------------ | -------------
 `title` | `string` | `sets the title of the alert` | `null`
 `text` | `string` | `sets the text of the alert` | `null`
-`button` | `array` | ```js
- $().();
-``` | `null`
+`button` | `array` | ```js $().();``` | `null`
 
 * title: string, sets the title of the alert, default is null
 * text: string, sets the text of the alert, default is null
