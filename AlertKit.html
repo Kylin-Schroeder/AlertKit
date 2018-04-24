@@ -1,12 +1,24 @@
-<html>
-
-<head>
+<html><head>
     <title>AlertKit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <script src="AlertKit.js"></script>
-</head>
+<style>
+.__b729573983235721 {
+    border: solid black 1px;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    -webkit-user-select: none;
+} .__b729573983235721:active {
+    background: rgba(0, 0, 0, 0.1);
+} .__noScrolling_821945779851290 {
+    overflow: hidden !important;
+}</style></head>
 
-<body style="margin: 0">
+<body style="margin: 0" class="">
     <style>
         .m {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -42,77 +54,106 @@
     </style>
 
 
-    <h1 style="padding: 15px 15px 0 15px;">AlertKit</h1>
+    <h1 style="padding: 15px 15px 0 15px;">AlertKit</h1><hr><h2 style="margin: 15px">AlertKit.alert</h2><hr>
 
 
 
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!');">
             <h2>Alert</h2>
-            <text>Basic alert.</text>
+  <text>Basic alert.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Example', 'Hello, world!');</pre></div>
         </div>
-    </div>
+</div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Hello, world!');">
             <h2>Title</h2>
-            <text>Alert containing only a title.</text>
+            <text>Alert containing only a title.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Hello, world!');</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert(null, 'Hello, world!');">
             <h2>Text</h2>
-            <text>Alert containing only text.</text>
+            <text>Alert containing only text.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert(null, 'Hello, world!');</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()'], ['Google', 'window.open(`http://google.com/`)']]);">
             <h2>Alert with Buttons</h2>
-            <text>An alert with the default button style.</text>
+            <text>An alert with the default button style.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace">AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()'], ['Google', 'window.open(`http://google.com/`)']]);</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()', 'FF0000', null, null, 'F0F3F4', null, null, '150ms'], ['Google', 'window.open(`http://google.com/`)', 'FFFFFF', 'F0F3F4', '0000FF', null, '0000FF']])">
             <h2>Alert with Custom Buttons</h2>
-            <text>An alert with custom button styles.</text>
+            <text>An alert with custom button styles.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()', 'FF0000', null, null, 'F0F3F4', null, null, '150ms'], ['Google', 'window.open(`http://google.com/`)', 'FFFFFF', 'F0F3F4', '0000FF', null, '0000FF']])</pre></div>
         </div>
     </div>
 
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert(null, null, [['Dismiss', 'AlertKit.alert.close()']]);">
             <h2>Buttons</h2>
-            <text>Alert containing only buttons.</text>
+            <text>Alert containing only buttons.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert(null, null, [['Dismiss', 'AlertKit.alert.close()']]);</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Hello, world!', null, [['Dismiss', 'AlertKit.alert.close()']]);">
             <h2>Title and Buttons</h2>
-            <text>Alert containing only a title and buttons.</text>
+            <text>Alert containing only a title and buttons.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Hello, world!', null, [['Dismiss', 'AlertKit.alert.close()']]);</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert(null, 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()']]);">
             <h2>Text and Buttons</h2>
-            <text>Alert containing only text and buttons.</text>
+            <text>Alert containing only text and buttons.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert(null, 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()']]);</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()']], false);">
             <h2>Alert without Click-Out</h2>
-            <text>An alert which doesn't let the user click the background to dismiss it.</text>
+            <text>An alert which doesn't let the user click the background to dismiss it.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Example', 'Hello, world!', [['Dismiss', 'AlertKit.alert.close()']], false);</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', '<i>Hello, world!</i>', [['Dismiss', 'AlertKit.alert.close()']], null, true);">
             <h2>Alert with HTML</h2>
-            <text>An alert which can contain HTML.</text>
+            <text>An alert which can contain HTML.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Example', '&lt;i&gt;Hello, world!&lt;/i&gt;', [['Dismiss', 'AlertKit.alert.close()']], null, true);</pre></div>
         </div>
     </div>
     <div class="m">
         <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Demo', 'Click the button below to call AlertKit.alert again.', [['Call', 'AlertKit.alert(`Complete`, `Click the background of this alert to dismiss.`)']]);">
             <h2>Multiple calls</h2>
-            <text>See how multiple AlertKit.alert calls are handled.</text>
+            <text>See how multiple AlertKit.alert calls are handled.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Demo', 'Click the button below to call AlertKit.alert again.', [['Call', 'AlertKit.alert(`Complete`, `Click the background of this alert to dismiss.`)']]);</pre></div>
         </div>
     </div>
-</body>
+    
+    <div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('Example', 'Hello, world!', null, false, false, 2.5);">
+            <h2>Timed Alert</h2>
+            <text>An alert automatically dismisses after a configurable period of time.</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('Example', 'Hello, world!', null, false, false, 2.5);</pre></div>
+        </div>
+    </div><hr><h2 style="margin: 15px">AlertKit.read</h2><hr>
+<div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('AlertKit.read(0)', AlertKit.read(0))">
+            <h2>alertModalClass</h2>
+            <text>0</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('AlertKit.read(0)', AlertKit.read(0));</pre></div>
+        </div>
+    </div><div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('AlertKit.read(1)', AlertKit.read(1))">
+            <h2>alertModalInnerClass</h2>
+            <text>1</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('AlertKit.read(1)', AlertKit.read(1));</pre></div>
+        </div>
+    </div><div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('AlertKit.read(2)', AlertKit.read(2))">
+            <h2>noScrollingClass</h2>
+            <text>2</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('AlertKit.read(2)', AlertKit.read(2));</pre></div>
+        </div>
+    </div><div class="m">
+        <div style="padding: 15px 15px 15px 15px" onclick="AlertKit.alert('AlertKit.read(3)', AlertKit.read(3))">
+            <h2>buttonClass</h2>
+            <text>3</text><br><br><div style="background: white"><pre style="margin: 0; font-family: monospace; overflow-x: scroll; width: 100%">AlertKit.alert('AlertKit.read(3)', AlertKit.read(3));</pre></div>
+        </div>
+    </div>
 
-</html>
+
+
+</body></html>
