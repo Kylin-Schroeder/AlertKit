@@ -16,7 +16,7 @@ Parametar | Type | What it does | default value
 --------- | ---- | ------------ | -------------
 `title` | `string` | `sets the title of the alert` | `null`
 `text`  | `string` | `sets the text of the alert` | `null`
-`button` | `array` | `creates buttons with actions. See buttons table below` | `null`
+`button` | `array` | `creates buttons with actions. See buttons array below` | `null`
 `enableClickOut` | `boolean` | `If true, the user will be able to click outside the alert to dismiss it.` | `true`
 `html` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n.` | `false`
 
