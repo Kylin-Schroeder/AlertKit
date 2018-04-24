@@ -3,7 +3,7 @@ A Javascript Alert Framework.
 
 ## Functions
 
-#### AlertKit.init
+### AlertKit.init
 
 `Sets up AlertKit for use.`
 
@@ -13,9 +13,9 @@ Parameters | What It Does | Default Value
 `body_fix` | `sets <body>'s margin to 0 if true` | `true`
 
 
-AlertKit.alert
-Displays an alert.
-Arguments:
+### AlertKit.alert
+
+`Displays an alert.`
 
 Parameters | Type | What It Does | Default Value
 --------- | ---- | ------------ | -------------
@@ -25,7 +25,7 @@ Parameters | Type | What It Does | Default Value
 `enableClickOut` | `boolean` | `If true, the user will be able to click outside the alert to dismiss it.` | `true`
 `html` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n.` | `false`
 
-### Buttons
+#### Buttons
 ```js
   [
     [
@@ -43,15 +43,16 @@ Parameters | Type | What It Does | Default Value
   ]
 ```
 
-## Example:
+#### Example:
 ```js
 AlertKit.alert("Example Alert", "Hello, world!", [
   ["Google", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"]
 ]);
 ```
 
-`AlertKit.alert.close();`
-Dismisses an open alert.
+### AlertKit.alert.close
+
+`Dismisses an open alert.`
 
 ## Live Demo
 Check this project out at [https://s0n1c.org/AlertKit/dist](https://s0n1c.org/AlertKit/dist)!
