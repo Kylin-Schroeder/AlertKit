@@ -1,41 +1,168 @@
 //  AlertKit by 1GamerDev
-//  Licensed under DBAD
-//  Version 1.1.0
+//  Licensed under DBAD 1.1
+//  Version 1.1.1
 //  Released 24th of April, 2018
-var AlertKit = {};
+/*
+# DON'T BE A DICK PUBLIC LICENSE
+
+> Version 1.1, December 2016
+
+> Copyright (C) 2018 1GamerDev
+
+Everyone is permitted to copy and distribute verbatim or modified
+copies of this license document.
+
+> DON'T BE A DICK PUBLIC LICENSE
+> TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+1. Do whatever you like with the original work, just don't be a dick.
+
+   Being a dick includes - but is not limited to - the following instances:
+
+ 1a. Outright copyright infringement - Don't just copy this and change the name.
+ 1b. Selling the unmodified original with no work done what-so-ever, that's REALLY being a dick.
+ 1c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.
+
+2. If you become rich through modifications, related works/services, or supporting the original work,
+share the love. Only a dick would make loads off this work and not buy the original work's
+creator(s) a pint.
+
+3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes
+you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.
+*/
+var AlertKit = { information: {}, legal: { license: {} } };
+Object.defineProperty(AlertKit["information"], "version", {
+  value: "1.1.1",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"]["license"], "name", {
+  value: "Don't be a Dick",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"]["license"], "shortName", {
+  value: "DBAD",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"]["license"], "version", {
+  value: "1.1",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"]["license"], "webpage", {
+  value: "http://www.dbad-license.org/",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"]["license"], "release", {
+  value: [[12, "December"], 2016],
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit, "information", {
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"], "license", {
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit, "legal", {
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"]["license"], "text", {
+  value: `# DON'T BE A DICK PUBLIC LICENSE
+
+> Version 1.1, December 2016
+
+> Copyright (C) 2018 1GamerDev
+
+Everyone is permitted to copy and distribute verbatim or modified
+copies of this license document.
+
+> DON'T BE A DICK PUBLIC LICENSE
+> TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+1. Do whatever you like with the original work, just don't be a dick.
+
+   Being a dick includes - but is not limited to - the following instances:
+
+ 1a. Outright copyright infringement - Don't just copy this and change the name.
+ 1b. Selling the unmodified original with no work done what-so-ever, that's REALLY being a dick.
+ 1c. Modifying the original work to contain hidden harmful content. That would make you a PROPER dick.
+
+2. If you become rich through modifications, related works/services, or supporting the original work,
+share the love. Only a dick would make loads off this work and not buy the original work's
+creator(s) a pint.
+
+3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes
+you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.`,
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["information"], "release", {
+  value: [24, [4, "April"], 2018],
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["legal"], "copyright", {
+  value: "© 2018, 1GamerDev",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
+Object.defineProperty(AlertKit["information"], "author", {
+  value: "1GamerDev",
+  writable: false,
+  enumerable: false,
+  configurable: false
+});
 AlertKit.init = function(__alert = false, body_fix = true, nef = false) {
     if (body_fix == true) {
         document.body.style.margin = "0px";
     }
-
-    function __AlertKitRandomNumberGenerator(len = 1) {
-        if (typeof len != "number") {
-            return false;
-        }
-        if (len <= 0 || len == null) {
-            console.error("Invalid length.");
-            return false;
-        }
-        if (len.toString().includes(".")) {
-            return false;
-        }
-        var returnValue = "";
-        var loop = true;
-
-        function returnRandomNumberAsString() {
-            var returnInteger = Math.floor(Math.random() * 10);
-            return returnInteger.toString();
-        }
-        while (loop) {
-            if (returnValue.length != len) {
-                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
-            } else {
-                loop = false;
-            }
-        }
-        return parseInt(returnValue);
+function __AlertKitRandomNumberGenerator(len = 1) {
+    if (typeof len != "number") {
+    return false;
+  }
+  if (len <= 0 || len == null) {
+    console.error("Invalid length.");
+    return false;
+  }
+  if (len.toString().includes(".")) {
+    return false;
+  }
+  var returnValue = "";
+  var loop = true;
+  function returnRandomNumberAsString() {
+    var returnInteger = Math.floor(Math.random() * 10);
+    return returnInteger.toString();
+  }
+  while (loop) {
+    if (returnValue.length != len) {
+      returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
+    } else {
+      loop = false;
     }
+  }
+  return parseInt(returnValue);
+}
     AlertKit.__proto__.__alertModalClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__alertModalInnerClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__noScrollingClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__buttonClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.buttonStyles = `<style>
@@ -66,6 +193,19 @@ AlertKit.init = function(__alert = false, body_fix = true, nef = false) {
     }
     delete AlertKit.init;
 }
+AlertKit.read = function(what) {
+    var mapping = {
+        "0": AlertKit.__proto__.__alertModalClass,
+        "1": AlertKit.__proto__.__alertModalInnerClass,
+        "2": AlertKit.__proto__.__noScrollingClass,
+        "3": AlertKit.__proto__.__buttonClass,
+        "alertModalClass": AlertKit.__proto__.__alertModalClass,
+        "alertModalInnerClass": AlertKit.__proto__.__alertModalInnerClass,
+        "noScrollingClass": AlertKit.__proto__.__noScrollingClass,
+        "buttonClass": AlertKit.__proto__.__buttonClass
+    }
+    return (mapping[what] ? mapping[what] : false);
+}
 AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false, seconds = false) {
     function __stopBodyScrolling(bool) {
         if (bool === true) {
@@ -74,34 +214,32 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             document.body.classList.remove("__noScrolling_" + AlertKit.__proto__.__noScrollingClass);
         }
     }
-
-    function __AlertKitRandomNumberGenerator(len = 1) {
-        if (typeof len != "number") {
-            return false;
-        }
-        if (len <= 0 || len == null) {
-            console.error("Invalid length.");
-            return false;
-        }
-        if (len.toString().includes(".")) {
-            return false;
-        }
-        var returnValue = "";
-        var loop = true;
-
-        function returnRandomNumberAsString() {
-            var returnInteger = Math.floor(Math.random() * 10);
-            return returnInteger.toString();
-        }
-        while (loop) {
-            if (returnValue.length != len) {
-                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
-            } else {
-                loop = false;
-            }
-        }
-        return parseInt(returnValue);
+function __AlertKitRandomNumberGenerator(len = 1) {
+    if (typeof len != "number") {
+    return false;
+  }
+  if (len <= 0 || len == null) {
+    console.error("Invalid length.");
+    return false;
+  }
+  if (len.toString().includes(".")) {
+    return false;
+  }
+  var returnValue = "";
+  var loop = true;
+  function returnRandomNumberAsString() {
+    var returnInteger = Math.floor(Math.random() * 10);
+    return returnInteger.toString();
+  }
+  while (loop) {
+    if (returnValue.length != len) {
+      returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
+    } else {
+      loop = false;
     }
+  }
+  return parseInt(returnValue);
+}
     if (typeof AlertKit.init != "undefined") {
         AlertKit.init();
     }
@@ -146,11 +284,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         delete AlertKit.alert.__proto__.removed;
     }
     if (typeof seconds == "number" && !seconds.toString().includes("-") && seconds != false && seconds >= 1) {
-        AlertKit.alert.__proto__.closeAlert = setTimeout(function() {
-            AlertKit.alert.close();
-            clearTimeout(AlertKit.alert.__proto__.closeAlert);
-            delete AlertKit.alert.__proto__.closeAlert;
-        }, seconds * 1000);
+        AlertKit.alert.__proto__.closeAlert = setTimeout(function() { AlertKit.alert.close(); clearTimeout(AlertKit.alert.__proto__.closeAlert); delete AlertKit.alert.__proto__.closeAlert; }, seconds * 1000);
     }
     var map = {
         '&': '&amp;',
@@ -250,6 +384,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     AlertKit.alert.__proto__.modal.style.margin = "0 12.5% 0 12.5%";
     AlertKit.alert.__proto__.modal.style.background = "white";
     AlertKit.alert.__proto__.modal.style.position = "fixed";
+    AlertKit.alert.__proto__.modal.className = AlertKit.__proto__.__alertModalInnerClass;
     AlertKit.alert.__proto__.modal.innerHTML = "";
     if (title != null)
         if (text == null && buttons != null)
