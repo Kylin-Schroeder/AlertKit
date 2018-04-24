@@ -12,11 +12,12 @@ AlertKit.alert
 Displays an alert.
 Arguments:
 
-| Parametar | Type | What it does | default value
-| --------- | ---- | ------------ | -------------
-| `title` | `string` | `sets the title of the alert` | `null`
-| `text`  | `string` | `sets the text of the alert` | `null`
-|`button` | `array` | `creates buttons with actions.` ```[(array) [(string) title, (string) onclick, (string) background, (string) activeBackground, (string) textColour, (string) activeTextColour, (string) border, (string) activeBorder, (string) transition], (array) [(string) title, (string) onclick, (string) background, (string) activeBackground, (string) textColour, (string) activeTextColour, (string) border, (string) activeBorder, (string) transition], ...]``` | `null`
+Parametar | Type | What it does | default value
+--------- | ---- | ------------ | -------------
+`title` | `string` | `sets the title of the alert` | `null`
+`text`  | `string` | `sets the text of the alert` | `null`
+`button` | `array` | `creates buttons with actions.` ```[(array) [(string) title, (string) onclick, (string) background, (string) activeBackground, (string) textColour, (string) activeTextColour, (string) border, (string) activeBorder, (string) transition], (array) [(string) title, (string) onclick, (string) background, (string) activeBackground, (string) textColour, (string) activeTextColour, (string) border, (string) activeBorder, (string) transition], ...]``` | `null`
+
 
 * title: string, sets the title of the alert, default is null
 * text: string, sets the text of the alert, default is null
