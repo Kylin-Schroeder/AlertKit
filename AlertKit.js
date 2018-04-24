@@ -1,9 +1,9 @@
 //  AlertKit by 1GamerDev
 //  Licensed under DBAD
-//  Version 1.0.5
-//  Released 22 of April, 2018
+//  Version 1.1.0
+//  Released 24th of April, 2018
 var AlertKit = {};
-AlertKit.init = function(__alert = false, body_fix = true) {
+AlertKit.init = function(__alert = false, body_fix = true, nef = false) {
     if (body_fix == true) {
         document.body.style.margin = "0px";
     }
@@ -60,9 +60,13 @@ AlertKit.init = function(__alert = false, body_fix = true) {
     __alert ? (window.alert = function(a, b, c, d) {
         return AlertKit.alert(a, b, c, d);
     }) : void(0);
+    AlertKit.alert.__proto__.needsExecuted = [];
+    if (nef != false) {
+        AlertKit.alert.__proto__.needsExecutedFirst = true;
+    }
     delete AlertKit.init;
 }
-AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false) {
+AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false, seconds = false) {
     function __stopBodyScrolling(bool) {
         if (bool === true) {
             document.body.classList.add("__noScrolling_" + AlertKit.__proto__.__noScrollingClass);
@@ -102,6 +106,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         AlertKit.init();
     }
     if (AlertKit.alert.__proto__.executable != true) {
+        AlertKit.alert.__proto__.needsExecuted.push([arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]]);
         return false;
     } else {
         AlertKit.alert.__proto__.executable = false;
@@ -112,10 +117,19 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     if (AlertKit.alert.__proto__.removed != true && document.body.contains(document.getElementsByClassName(AlertKit.__proto__.__alertModalClass)[document.getElementsByClassName(AlertKit.__proto__.__alertModalClass).length - 1])) {
         AlertKit.alert.close = function() {
             delete AlertKit.alert.close;
+            if (typeof AlertKit.alert.__proto__.closeAlert != "undefined") {
+                clearTimeout(AlertKit.alert.__proto__.closeAlert);
+                delete AlertKit.alert.__proto__.closeAlert;
+            }
             AlertKit.alert.__proto__.modal.style.top = "100%";
             setTimeout(function() {
                 document.body.removeChild(AlertKit.alert.__proto__.modal);
                 __stopBodyScrolling(false);
+                if (AlertKit.alert.__proto__.needsExecuted.length > 0 && AlertKit.alert.__proto__.needsExecutedFirst === true) {
+                    var args = [AlertKit.alert.__proto__.needsExecuted[0][0], AlertKit.alert.__proto__.needsExecuted[0][1], AlertKit.alert.__proto__.needsExecuted[0][2], AlertKit.alert.__proto__.needsExecuted[0][3], AlertKit.alert.__proto__.needsExecuted[0][4], AlertKit.alert.__proto__.needsExecuted[0][5]];
+                    AlertKit.alert.__proto__.needsExecuted.shift();
+                    AlertKit.alert(args[0], args[1], args[2], args[3], args[4], args[5]);
+                }
             }, 500);
             if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
                 delete AlertKit.__proto__.__AlertKit_button_functions;
@@ -124,12 +138,19 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         AlertKit.alert.close();
         AlertKit.alert.__proto__.removed = true;
         setTimeout(function() {
-            AlertKit.alert(title, text, buttons, enableClickOut)
+            AlertKit.alert(title, text, buttons, enableClickOut, HTML, seconds);
         }, 500);
         return;
     }
     if (AlertKit.alert.__proto__.removed == true) {
         delete AlertKit.alert.__proto__.removed;
+    }
+    if (typeof seconds == "number" && !seconds.toString().includes("-") && seconds != false && seconds >= 1) {
+        AlertKit.alert.__proto__.closeAlert = setTimeout(function() {
+            AlertKit.alert.close();
+            clearTimeout(AlertKit.alert.__proto__.closeAlert);
+            delete AlertKit.alert.__proto__.closeAlert;
+        }, seconds * 1000);
     }
     var map = {
         '&': '&amp;',
@@ -170,6 +191,10 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     AlertKit.alert.__proto__.modal = document.createElement("div");
     AlertKit.alert.close = function() {
         delete AlertKit.alert.close;
+        if (typeof AlertKit.alert.__proto__.closeAlert != "undefined") {
+            clearTimeout(AlertKit.alert.__proto__.closeAlert);
+            delete AlertKit.alert.__proto__.closeAlert;
+        }
         AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.0)";
         AlertKit.alert.__proto__.modal.style.top = "100%";
         setTimeout(function() {
@@ -178,6 +203,11 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             if (document.body.contains(AlertKit.alert.__proto__.modal))
                 document.body.removeChild(AlertKit.alert.__proto__.modal);
             __stopBodyScrolling(false);
+            if (AlertKit.alert.__proto__.needsExecuted.length > 0) {
+                var args = [AlertKit.alert.__proto__.needsExecuted[0][0], AlertKit.alert.__proto__.needsExecuted[0][1], AlertKit.alert.__proto__.needsExecuted[0][2], AlertKit.alert.__proto__.needsExecuted[0][3], AlertKit.alert.__proto__.needsExecuted[0][4], AlertKit.alert.__proto__.needsExecuted[0][5]];
+                AlertKit.alert.__proto__.needsExecuted.shift(0);
+                AlertKit.alert(args[0], args[1], args[2], args[3], args[4], args[5]);
+            }
         }, 500);
         if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
             delete AlertKit.__proto__.__AlertKit_button_functions;
