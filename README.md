@@ -27,7 +27,7 @@ Parametar | Type | What it does | default value
       "Button title", // This is this button title
       "alert('I was clicked!');", // This is the command you could run right when this button is clicked
       "#007aff", // This is the background of this button
-      "#1987ff", "This is the backgorund of this button when it's :active (held on to)
+      "#1987ff", // This is the backgorund of this button when it's :active (held on to)
       null, // This is this border css
       null, // This is this border css when it's :active
       null, // This is the transition css of this button
