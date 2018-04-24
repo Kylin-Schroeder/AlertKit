@@ -9,12 +9,14 @@
 
 <div class="container">
 	<h2>AlertKit</h2>
-<a href="#" class="button" onclick="runExample()">Basic Alert + button</a>
-<a href="#" class="button" onclick="runExample2()">Multiple Buttons</a>
-<a href="#" class="button" onclick="runExample3()">No buttons</a>
-<a href="#" class="button" onclick="runExample4()">Just The Title</a>
-<a href="#" class="button" onclick="runExample5()">Just The Text</a>
-<a href="#" class="button" onclick="runExample6()">With HTML</a>
+	<div class="button-group">
+		<a href="#" class="button" onclick="runExample()">Basic Alert + button</a>
+		<a href="#" class="button" onclick="runExample2()">Multiple Buttons</a>
+		<a href="#" class="button" onclick="runExample3()">No buttons</a>
+		<a href="#" class="button" onclick="runExample4()">Just The Title</a>
+		<a href="#" class="button" onclick="runExample5()">Just The Text</a>
+		<a href="#" class="button" onclick="runExample6()">With HTML</a>
+	</div>
 </div>
 
 <script type="text/javascript" src="../AlertKit.js"></script>
@@ -69,6 +71,21 @@ body {
 	text-align:center;
 	display: block;
 	margin-bottom:2%;
+}
+	
+.button-group > .button {
+	margin:0;
+	border-radius: 10px;
+}
+
+.button-group > .button:first-child {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.button-group > .button:last-child {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 	
 .container {
