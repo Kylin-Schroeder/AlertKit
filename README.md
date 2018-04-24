@@ -54,7 +54,7 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 Dismisses an open alert.
 
 ## Live Demo
-Check this project out at [https://s0n1c.org/AlertKit](https://s0n1c.org/AlertKit)!
+Check this project out at [https://s0n1c.org/AlertKit/dist](https://s0n1c.org/AlertKit/dist)!
 
 ## Known Bugs
 None
