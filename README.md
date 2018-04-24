@@ -3,7 +3,7 @@ A Javascript Alert Framework.
 
 ## Functions
 
-AlertKit.init
+#### AlertKit.init
 
 `Sets up AlertKit for use.`
 
