@@ -13,7 +13,7 @@ Displays an alert.
 Arguments:
 
 Parametar | Type | What it does | default value
-------------------------------------------------
+--------- | ---- | ------------ | -------------
 title | `string` | sets the title of the alert
 
 * title: string, sets the title of the alert, default is null
