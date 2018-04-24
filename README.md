@@ -53,5 +53,8 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 `AlertKit.alert.close();`
 Dismisses an open alert.
 
+## Live Demo
+Check this project out at [https://s0n1c.org/AlertKit](https://s0n1c.org/AlertKit)!
+
 ## Known Bugs
 None
