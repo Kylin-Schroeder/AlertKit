@@ -23,7 +23,9 @@ Parametar | Type | What it does | default value
 
 ## Example:
 ```js
-AlertKit.alert("Example Alert", "Hello, world!", [["Google", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"]]);
+AlertKit.alert("Example Alert", "Hello, world!", [
+  ["Google", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"]
+]);
 ```
 
 AlertKit.alert.close
