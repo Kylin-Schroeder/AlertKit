@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>AlertKit</title>
+</head>
+<body>
+
+<a href="#" class="button" onclick="runExample()">Show alert</a>
+
+<script type="text/javascript" src="../AlertKit.js"></script>
+<script>
+function runExample() {
+	AlertKit.alert("Example Alert", "Hello, world!", [
+	  ["Google", `location = "http://google.com/";`, "f44242", "41cdf4", null, null, null, null, "250ms"]
+	]);
+}
+</script>
+<style>
+* {
+	font-family: helvetica;
+	font-weight:100;
+}
+
+body {
+	backgorund: #fff;
+	color: #444;
+}
+
+.button {
+	background: #007aff;
+	color: #fff;
+	text-decoration: none;
+	padding:10px;
+	border-radius: 10px;
+	border:0;
+	text-align:center;
+}
+</style>
+</body>
+</html>
