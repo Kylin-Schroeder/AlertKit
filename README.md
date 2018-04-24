@@ -11,6 +11,11 @@ The only two arguments for this function are __alert and body_fix.  __alert sets
 AlertKit.alert
 Displays an alert.
 Arguments:
+
+Parametar | Type | What it does | default value
+------------------------------------------------
+title | `string` | sets the title of the alert
+
 * title: string, sets the title of the alert, default is null
 * text: string, sets the text of the alert, default is null
 * buttons: array, [(array) [(string) title, (string) onclick, (string) background, (string) activeBackground, (string) textColour, (string) activeTextColour, (string) border, (string) activeBorder, (string) transition], (array) [(string) title, (string) onclick, (string) background, (string) activeBackground, (string) textColour, (string) activeTextColour, (string) border, (string) activeBorder, (string) transition], ...], default is null
