@@ -1,18 +1,21 @@
 # AlertKit
-a javascript alert
+A Javascript Alert Framework.
 
 ## Functions
-(if someone could explain this better, that would be nice :P i'm not good at this kind of stuff)
 
 AlertKit.init
-Sets up AlertKit for use.
-The only two arguments for this function are __alert and body_fix.  __alert sets alert() to AlertKit.alert() if true, (default is false), and body_fix sets <body>'s margin to 0 if true, which is the default.
+`Sets up AlertKit for use.`
+parameters | What is does | Default Value
+---------- | ------------ | --------------
+`__alert`    | `Sets alert() to AlertKit.alert() if true` | `false`
+`body_fix` | `sets <body>'s margin to 0 if true` | `true`
+
 
 AlertKit.alert
 Displays an alert.
 Arguments:
 
-Parametar | Type | What it does | default value
+Parameters | Type | What It Does | Default Value
 --------- | ---- | ------------ | -------------
 `title` | `string` | `sets the title of the alert` | `null`
 `text`  | `string` | `sets the text of the alert` | `null`
