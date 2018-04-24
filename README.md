@@ -4,6 +4,7 @@ A Javascript Alert Framework.
 ## Functions
 
 AlertKit.init
+
 `Sets up AlertKit for use.`
 
 Parameters | What It Does | Default Value
