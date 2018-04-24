@@ -1,6 +1,6 @@
 //  AlertKit by 1GamerDev
 //  Licensed under DBAD 1.1
-//  Version 1.1.1
+//  Version 1.1.2
 //  Released 24th of April, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
@@ -32,7 +32,7 @@ you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix bac
 */
 var AlertKit = { information: {}, legal: { license: {} } };
 Object.defineProperty(AlertKit["information"], "version", {
-  value: "1.1.1",
+  value: "1.1.2",
   writable: false,
   enumerable: false,
   configurable: false
@@ -194,17 +194,20 @@ function __AlertKitRandomNumberGenerator(len = 1) {
     delete AlertKit.init;
 }
 AlertKit.read = function(what) {
-    var mapping = {
-        "0": AlertKit.__proto__.__alertModalClass,
-        "1": AlertKit.__proto__.__alertModalInnerClass,
-        "2": AlertKit.__proto__.__noScrollingClass,
-        "3": AlertKit.__proto__.__buttonClass,
-        "alertModalClass": AlertKit.__proto__.__alertModalClass,
-        "alertModalInnerClass": AlertKit.__proto__.__alertModalInnerClass,
-        "noScrollingClass": AlertKit.__proto__.__noScrollingClass,
-        "buttonClass": AlertKit.__proto__.__buttonClass
+    if (typeof AlertKit.__proto__.__alertModalClass != "undefined" && typeof AlertKit.__proto__.__alertModalInnerClass != "undefined" && typeof AlertKit.__proto__.__noScrollingClass != "undefined" && typeof AlertKit.__proto__.__buttonClass != "undefined") {
+        var mapping = {
+            "0": AlertKit.__proto__.__alertModalClass,
+            "1": AlertKit.__proto__.__alertModalInnerClass,
+            "2": AlertKit.__proto__.__noScrollingClass,
+            "3": AlertKit.__proto__.__buttonClass,
+            "alertModalClass": AlertKit.__proto__.__alertModalClass,
+            "alertModalInnerClass": AlertKit.__proto__.__alertModalInnerClass,
+            "noScrollingClass": AlertKit.__proto__.__noScrollingClass,
+            "buttonClass": AlertKit.__proto__.__buttonClass
+        }
+        return (mapping[what] ? mapping[what] : false);
     }
-    return (mapping[what] ? mapping[what] : false);
+    return false;
 }
 AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false, seconds = false) {
     function __stopBodyScrolling(bool) {
