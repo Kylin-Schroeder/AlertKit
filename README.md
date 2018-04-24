@@ -9,8 +9,9 @@ A Javascript Alert Framework.
 
 Parameters | What It Does | Default Value
 ---------- | ------------ | --------------
-`__alert`  | `Sets alert() to AlertKit.alert() if true` | `false`
+`__alert`  | `sets alert() to AlertKit.alert() if true` | `false`
 `body_fix` | `sets <body>'s margin to 0 if true` | `true`
+`nef` | `priorities alerts yet to show up while delaying new alerts if true` | `false`
 
 
 ### AlertKit.alert
@@ -21,9 +22,10 @@ Parameters | Type | What It Does | Default Value
 --------- | ---- | ------------ | -------------
 `title` | `string` | `sets the title of the alert` | `null`
 `text`  | `string` | `sets the text of the alert` | `null`
-`button` | `array` | `creates buttons with actions. See buttons array below` | `null`
+`buttons` | `array` | `creates buttons with actions. See buttons array below` | `null`
 `enableClickOut` | `boolean` | `If true, the user will be able to click outside the alert to dismiss it.` | `true`
-`html` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n.` | `false`
+`HTML` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n.` | `false`
+`seconds` | `number` | `sets the amount of seconds the alert will be displayed for` | `false`
 
 #### Buttons
 ```js
@@ -60,7 +62,10 @@ AlertKit.alert.close();
 ```
 
 ## Live Demo
-Check this project out at [https://s0n1c.org/AlertKit/dist](https://s0n1c.org/AlertKit/dist)!
+Check this project out at [https://1gamerdev.github.io/AlertKit/AlertKit.html](https://1gamerdev.github.io/AlertKit/AlertKit.html)!
 
 ## Known Bugs
 None
+
+## Credits
+AlertKit by 1GamerDev, most of this README by S0n1c_Dev.
