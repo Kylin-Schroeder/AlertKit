@@ -54,6 +54,11 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 
 `Dismisses an open alert.`
 
+#### Example: 
+```js
+AlertKit.alert.close();
+```
+
 ## Live Demo
 Check this project out at [https://s0n1c.org/AlertKit/dist](https://s0n1c.org/AlertKit/dist)!
 
