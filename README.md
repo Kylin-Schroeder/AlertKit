@@ -5,9 +5,9 @@ A Javascript Alert Framework.
 
 AlertKit.init
 `Sets up AlertKit for use.`
-parameters | What is does | Default Value
+Parameters | What It Does | Default Value
 ---------- | ------------ | --------------
-`__alert`    | `Sets alert() to AlertKit.alert() if true` | `false`
+`__alert`  | `Sets alert() to AlertKit.alert() if true` | `false`
 `body_fix` | `sets <body>'s margin to 0 if true` | `true`
 
 
