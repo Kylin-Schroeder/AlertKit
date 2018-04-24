@@ -28,7 +28,7 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 ]);
 ```
 
-AlertKit.alert.close
+`AlertKit.alert.close`
 Dismisses an open alert.
 
 ## Known Bugs
