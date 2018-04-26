@@ -1,6 +1,6 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.1.4
+//  Version 1.1.5
 //  Released 27th of April, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
@@ -38,7 +38,7 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: "1.1.4",
+    value: ["1.1.5", [1, 1, 5]],
     writable: false,
     enumerable: false,
     configurable: false
@@ -145,6 +145,8 @@ you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix bac
 //  nef = prioritise unloaded alerts over new ones [bool]
 //  manualDismiss = if an alert is on screen while this is true, new alerts will be added to needsExecuted
 AlertKit.init = function(__alert = false, body_fix = true, nef = false, manualDismiss = false) {
+    if (typeof document.body == "undefined" || typeof document.head == "undefined")
+       return false;
     if (body_fix == true) {
         document.body.style.margin = "0px";
     }
