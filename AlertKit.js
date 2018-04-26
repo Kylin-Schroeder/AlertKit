@@ -1,5 +1,5 @@
 //  AlertKit by 1GamerDev
-//  Licensed under DBAD 1.1
+//  Licensed uander DBAD 1.1
 //  Version 1.1.3
 //  Released 26th of April, 2018
 /*
@@ -30,79 +30,86 @@ creator(s) a pint.
 3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes
 you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.
 */
-var AlertKit = { information: {}, legal: { license: {} } };
+var AlertKit = {
+    information: {},
+    legal: {
+        license: {}
+    }
+};
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-  value: "1.1.3",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "1.1.3",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-  value: [26, [4, "April"], 2018],
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: [26, [4, "April"], 2018],
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"], "copyright", {
-  value: "© 2018, 1GamerDev",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "© 2018, 1GamerDev",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["information"], "author", {
-  value: "1GamerDev",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "1GamerDev",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"]["license"], "name", {
-  value: "Don't be a Dick",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "Don't be a Dick",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"]["license"], "shortName", {
-  value: "DBAD",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "DBAD",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"]["license"], "version", {
-  value: "1.1",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "1.1",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"]["license"], "webpage", {
-  value: "http://www.dbad-license.org/",
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: "http://www.dbad-license.org/",
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"]["license"], "release", {
-  value: [[12, "December"], 2016],
-  writable: false,
-  enumerable: false,
-  configurable: false
+    value: [
+        [12, "December"], 2016
+    ],
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit, "information", {
-  writable: false,
-  enumerable: false,
-  configurable: false
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"], "license", {
-  writable: false,
-  enumerable: false,
-  configurable: false
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit, "legal", {
-  writable: false,
-  enumerable: false,
-  configurable: false
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 Object.defineProperty(AlertKit["legal"]["license"], "text", {
-  value: `# DON'T BE A DICK PUBLIC LICENSE
+    value: `# DON'T BE A DICK PUBLIC LICENSE
 
 > Version 1.1, December 2016
 
@@ -128,9 +135,9 @@ creator(s) a pint.
 
 3. Code is provided with no warranty. Using somebody else's code and bitching when it goes wrong makes
 you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix back.`,
-  writable: false,
-  enumerable: false,
-  configurable: false
+    writable: false,
+    enumerable: false,
+    configurable: false
 });
 //  set up AlertKit for use
 //  __alert = overwrite alert() [bool]
@@ -142,33 +149,34 @@ AlertKit.init = function(__alert = false, body_fix = true, nef = false, manualDi
         document.body.style.margin = "0px";
     }
     // returns a random number
-function __AlertKitRandomNumberGenerator(len = 1) {
-    if (typeof len != "number") {
-    return false;
-  }
-  if (len <= 0 || len == null) {
-    console.error("Invalid length.");
-    return false;
-  }
-  if (len.toString().includes(".")) {
-    return false;
-  }
-  var returnValue = "";
-  var loop = true;
-  function returnRandomNumberAsString() {
-    var returnInteger = Math.floor(Math.random() * 10);
-    return returnInteger.toString();
-  }
-  while (loop) {
-    if (returnValue.length != len) {
-      returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
-    } else {
-      loop = false;
+    function __AlertKitRandomNumberGenerator(len = 1) {
+        if (typeof len != "number") {
+            return false;
+        }
+        if (len <= 0 || len == null) {
+            console.error("Invalid length.");
+            return false;
+        }
+        if (len.toString().includes(".")) {
+            return false;
+        }
+        var returnValue = "";
+        var loop = true;
+
+        function returnRandomNumberAsString() {
+            var returnInteger = Math.floor(Math.random() * 10);
+            return returnInteger.toString();
+        }
+        while (loop) {
+            if (returnValue.length != len) {
+                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
+            } else {
+                loop = false;
+            }
+        }
+        return parseInt(returnValue);
     }
-  }
-  return parseInt(returnValue);
-}
-//  classes
+    //  classes
     AlertKit.__proto__.__alertModalClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__alertModalInnerClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__noScrollingClass = __AlertKitRandomNumberGenerator(15);
@@ -242,9 +250,9 @@ AlertKit.read = function(what) {
 //  HTML = dictates whether HTML is allowed within the alert's title / text [bool]
 //  seconds = amount of time the alert will be shown for [int]
 AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false, seconds = false) {
-var noFadeIn = (AlertKit.alert.__proto__.noFadeIn == true);
-AlertKit.alert.__proto__.noFadeIn = false;
-//  enables or disables scrolling on desktop
+    var noFadeIn = (AlertKit.alert.__proto__.noFadeIn == true);
+    AlertKit.alert.__proto__.noFadeIn = false;
+    //  enables or disables scrolling on desktop
     function __stopBodyScrolling(bool) {
         if (bool === true) {
             document.body.classList.add("__noScrolling_" + AlertKit.__proto__.__noScrollingClass);
@@ -253,33 +261,34 @@ AlertKit.alert.__proto__.noFadeIn = false;
         }
     }
     // random number generator
-function __AlertKitRandomNumberGenerator(len = 1) {
-    if (typeof len != "number") {
-    return false;
-  }
-  if (len <= 0 || len == null) {
-    console.error("Invalid length.");
-    return false;
-  }
-  if (len.toString().includes(".")) {
-    return false;
-  }
-  var returnValue = "";
-  var loop = true;
-  function returnRandomNumberAsString() {
-    var returnInteger = Math.floor(Math.random() * 10);
-    return returnInteger.toString();
-  }
-  while (loop) {
-    if (returnValue.length != len) {
-      returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
-    } else {
-      loop = false;
+    function __AlertKitRandomNumberGenerator(len = 1) {
+        if (typeof len != "number") {
+            return false;
+        }
+        if (len <= 0 || len == null) {
+            console.error("Invalid length.");
+            return false;
+        }
+        if (len.toString().includes(".")) {
+            return false;
+        }
+        var returnValue = "";
+        var loop = true;
+
+        function returnRandomNumberAsString() {
+            var returnInteger = Math.floor(Math.random() * 10);
+            return returnInteger.toString();
+        }
+        while (loop) {
+            if (returnValue.length != len) {
+                returnValue = parseInt(returnRandomNumberAsString() + returnValue).toString();
+            } else {
+                loop = false;
+            }
+        }
+        return parseInt(returnValue);
     }
-  }
-  return parseInt(returnValue);
-}
-//  call AlertKit.init with the default settings if it's not already been called
+    //  call AlertKit.init with the default settings if it's not already been called
     if (typeof AlertKit.init != "undefined") {
         AlertKit.init();
     }
@@ -288,7 +297,7 @@ function __AlertKitRandomNumberGenerator(len = 1) {
         AlertKit.alert.__proto__.needsExecuted.push([arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]]);
         return false;
     } else if (AlertKit.alert.__proto__.removed != true && document.body.contains(document.getElementsByClassName(AlertKit.__proto__.__alertModalClass)[document.getElementsByClassName(AlertKit.__proto__.__alertModalClass).length - 1]) && AlertKit.alert.__proto__.manualDismiss == true) {
-      AlertKit.alert.__proto__.needsExecuted.push([arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]]);
+        AlertKit.alert.__proto__.needsExecuted.push([arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]]);
         return false;
     } else {
         AlertKit.alert.__proto__.executable = false;
@@ -332,7 +341,11 @@ function __AlertKitRandomNumberGenerator(len = 1) {
     }
     //  seconds
     if (typeof seconds == "number" && !seconds.toString().includes("-") && seconds != false && seconds >= 1) {
-        AlertKit.alert.__proto__.closeAlert = setTimeout(function() { AlertKit.alert.close(); clearTimeout(AlertKit.alert.__proto__.closeAlert); delete AlertKit.alert.__proto__.closeAlert; }, seconds * 1000);
+        AlertKit.alert.__proto__.closeAlert = setTimeout(function() {
+            AlertKit.alert.close();
+            clearTimeout(AlertKit.alert.__proto__.closeAlert);
+            delete AlertKit.alert.__proto__.closeAlert;
+        }, seconds * 1000);
     }
     //  html replacement
     var map = {
@@ -382,11 +395,11 @@ function __AlertKitRandomNumberGenerator(len = 1) {
             delete AlertKit.alert.__proto__.closeAlert;
         }
         if (AlertKit.alert.__proto__.needsExecuted.length == 0)
-          AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.0)";
+            AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.0)";
         AlertKit.alert.__proto__.modal.style.top = "100%";
         setTimeout(function() {
             if (document.body.contains(AlertKit.alert.__proto__.modalBG))
-              document.body.removeChild(AlertKit.alert.__proto__.modalBG);
+                document.body.removeChild(AlertKit.alert.__proto__.modalBG);
             if (document.body.contains(AlertKit.alert.__proto__.modal))
                 document.body.removeChild(AlertKit.alert.__proto__.modal);
             __stopBodyScrolling(false);
@@ -411,12 +424,12 @@ function __AlertKitRandomNumberGenerator(len = 1) {
         AlertKit.alert.__proto__.modalBG.style.width = "100%";
         AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.0)";
         if (noFadeIn)
-          AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.6)";
+            AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.6)";
         AlertKit.alert.__proto__.modalBG.style.position = "fixed";
         AlertKit.alert.__proto__.modalBG.style.top = "0";
         AlertKit.alert.__proto__.modalBG.style.left = "0";
         if (!noFadeIn)
-          AlertKit.alert.__proto__.modalBG.style.transition = "500ms";
+            AlertKit.alert.__proto__.modalBG.style.transition = "500ms";
         AlertKit.alert.__proto__.modalBG.style.zIndex = highest + 1;
         AlertKit.alert.__proto__.modalBG.className = AlertKit.__proto__.__alertModalClass;
     }
@@ -608,7 +621,7 @@ function __AlertKitRandomNumberGenerator(len = 1) {
             AlertKit.alert.__proto__.modalBG.style.background = "rgba(0, 0, 0, 0.6)";
         }
         if (noFadeIn)
-          AlertKit.alert.__proto__.modalBG.style.transition = "500ms";
+            AlertKit.alert.__proto__.modalBG.style.transition = "500ms";
         AlertKit.alert.__proto__.modal.style.top = "12.5%";
         delete AlertKit.alert.__proto__.newModalBG;
     }, 50);
