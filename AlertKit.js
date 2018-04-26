@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.1.3
-//  Released 26th of April, 2018
+//  Version 1.1.4
+//  Released 27th of April, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
 
@@ -38,13 +38,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: "1.1.3",
+    value: "1.1.4",
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [26, [4, "April"], 2018],
+    value: [27, [4, "April"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -217,7 +217,7 @@ AlertKit.init = function(__alert = false, body_fix = true, nef = false, manualDi
 //  returns a class name
 //  what = 'static' name [string or int]
 AlertKit.read = function(what) {
-    if (typeof AlertKit.__proto__.__alertModalClass != "undefined" && typeof AlertKit.__proto__.__alertModalInnerClass != "undefined" && typeof AlertKit.__proto__.__noScrollingClass != "undefined" && typeof AlertKit.__proto__.__buttonClass != "undefined") {
+    if (typeof AlertKit.__proto__.__alertModalClass != "undefined" && typeof AlertKit.__proto__.__alertModalInnerClass != "undefined" && typeof AlertKit.__proto__.__noScrollingClass != "undefined" && typeof AlertKit.__proto__.__buttonClass != "undefined" && typeof AlertKit.init == "undefined") {
         var mapping = {
             "0": AlertKit.__proto__.__alertModalClass,
             "1": AlertKit.__proto__.__alertModalInnerClass,
