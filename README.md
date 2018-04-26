@@ -12,6 +12,7 @@ Parameters | Type | Purpose | Default Value
 `__alert`  | `boolean` | `sets alert() to AlertKit.alert() if true` | `false`
 `body_fix` | `boolean` | `sets <body>'s margin to 0 if true` | `true`
 `nef` | `boolean` | `priorities alerts yet to show up while delaying new alerts if true` | `false`
+`manualDismiss` | `boolean` | `if an alert is on screen while this is true, new alerts will be added to needsExecuted` | `false`
 
 ### AlertKit.read
 
