@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.1.5
-//  Released 27th of April, 2018
+//  Version 1.2.0
+//  Released 1st of May, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
 
@@ -38,13 +38,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.1.5", [1, 1, 5]],
+    value: ["1.2.0", [1, 2, 0]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [27, [4, "April"], 2018],
+    value: [1, [5, "May"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -141,10 +141,12 @@ you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix bac
 });
 //  set up AlertKit for use
 //  __alert = overwrite alert() [bool]
+//  __prompt = overwrite prompt() [bool]
 //  body_fix = no body margin [bool]
 //  nef = prioritise unloaded alerts over new ones [bool]
 //  manualDismiss = if an alert is on screen while this is true, new alerts will be added to needsExecuted
-AlertKit.init = function(__alert = false, body_fix = true, nef = false, manualDismiss = false) {
+//  daemon = start AlertKitDaemon [bool]
+AlertKit.init = function(__alert = false, __prompt = false, body_fix = true, nef = false, manualDismiss = false, daemon = false) {
     if (typeof document.body == "undefined" || typeof document.head == "undefined")
        return false;
     if (body_fix == true) {
@@ -183,6 +185,14 @@ AlertKit.init = function(__alert = false, body_fix = true, nef = false, manualDi
     AlertKit.__proto__.__alertModalInnerClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__noScrollingClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__buttonClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__promptCancelButtonClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__promptOKButtonClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__promptInputClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__promptButtonContainerClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.AlertKitDaemon.DAEMON_START = "start";
+    AlertKit.AlertKitDaemon.DAEMON_STOP = "stop";
+    AlertKit.AlertKitDaemon.DAEMON_STATUS = "status";
+    typeof AlertKit.AlertKitDaemon.running == "undefined" ? AlertKit.AlertKitDaemon.running = false : void(0);
     AlertKit.buttonStyles = `<style>
 .__b` + AlertKit.__proto__.__buttonClass + ` {
     border: solid black 1px;
@@ -202,41 +212,69 @@ AlertKit.init = function(__alert = false, body_fix = true, nef = false, manualDi
     document.head.innerHTML += AlertKit.buttonStyles;
     delete AlertKit.buttonStyles;
     AlertKit.alert.__proto__.executable = true;
-    __alert ? (window.alert = function(a, b, c, d) {
-        return AlertKit.alert(a, b, c, d);
+    __alert ? (window.alert = function(a, b, c, d, e, f) {
+        return AlertKit.alert(a, b, c, d, e, f);
+    }) : void(0); __prompt ? (window.prompt = function(a, b, c, d, e, f) {
+        return AlertKit.alert(a, b, c, d, e, f);
     }) : void(0);
     AlertKit.alert.__proto__.needsExecuted = [];
-    if (nef != false) {
+    if (nef != false)
         AlertKit.alert.__proto__.needsExecutedFirst = true;
-    }
-    if (manualDismiss == true) {
+    if (manualDismiss == true)
         AlertKit.alert.__proto__.manualDismiss = true;
-    } else {
+    else
         AlertKit.alert.__proto__.manualDismiss = false;
-    }
     delete AlertKit.init;
+    daemon ? AlertKit.AlertKitDaemon("start") : void(0);
 }
 //  returns a class name
 //  what = 'static' name [string or int]
 AlertKit.read = function(what) {
-    if (typeof AlertKit.__proto__.__alertModalClass != "undefined" && typeof AlertKit.__proto__.__alertModalInnerClass != "undefined" && typeof AlertKit.__proto__.__noScrollingClass != "undefined" && typeof AlertKit.__proto__.__buttonClass != "undefined" && typeof AlertKit.init == "undefined") {
+    if (typeof AlertKit.init == "undefined") {
+        var names = [
+        "alertModalClass",
+        "alertModalInnerClass",
+        "noScrollingClass",
+        "buttonClass",
+        "promptCancelButtonClass",
+        "promptOKButtonClass",
+        "promptInputClass",
+        "promptButtonContainerClass"
+        ]
         var mapping = {
             "0": AlertKit.__proto__.__alertModalClass,
             "1": AlertKit.__proto__.__alertModalInnerClass,
             "2": AlertKit.__proto__.__noScrollingClass,
             "3": AlertKit.__proto__.__buttonClass,
+            "4": AlertKit.__proto__.__promptCancelButtonClass,
+            "5": AlertKit.__proto__.__promptOKButtonClass,
+            "6": AlertKit.__proto__.__promptInputButtonClass,
+            "7": AlertKit.__proto__.__promptButtonContainerClass,
             "alertModalClass": AlertKit.__proto__.__alertModalClass,
             "alertModalInnerClass": AlertKit.__proto__.__alertModalInnerClass,
             "noScrollingClass": AlertKit.__proto__.__noScrollingClass,
-            "buttonClass": AlertKit.__proto__.__buttonClass
+            "buttonClass": AlertKit.__proto__.__buttonClass,
+            "promptCancelButtonClass": AlertKit.__proto__.__promptCancelButtonClass,
+            "promptOKButtonClass": AlertKit.__proto__.__promptOKButtonClass,
+            "promptInputClass": AlertKit.__proto__.__promptInputButtonClass,
+            "promptButtonContainerClass": AlertKit.__proto__.__promptButtonContainerClass
         }
-        return (mapping[what] ? mapping[what] : false);
+        if (what == "mapping") {
+            return mapping;
+        }
+        if (what == "names") {
+            return names;
+        }
+        return (mapping[what] ? mapping[what] : (typeof what == "string" && mapping[what.replace(/__/g, "")] ? mapping[what.replace(/__/g, "")] : false));
     }
     return false;
 }
 //  displays an alert
 //  title = alert's title [string]
 //  text = alert's text [string]
+
+//  using buttons
+
 //  buttons = alert's buttons [array]
 //  buttons[...] = button [array]
 //  buttons[...][0] = button title [string]
@@ -248,10 +286,20 @@ AlertKit.read = function(what) {
 //  buttons[...][6] = button border colour [string]
 //  buttons[...][7] = button border colour (active) [string]
 //  buttons[...][8] = transition length in time [string]
+
+//  using a prompt
+
+//  buttons = prompt [object]
+//  placeholder = field's placeholder [string]
+//  cancelButtonTitle = title of cancel button [string]
+//  okButtonTitle = title of ok button [string]
+//  callback = function user input is passed to [function]
+
 //  enableClickOut = dictates whether the alert's background can be clicked to close the alert [bool]
 //  HTML = dictates whether HTML is allowed within the alert's title / text [bool]
 //  seconds = amount of time the alert will be shown for [int]
 AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, HTML = false, seconds = false) {
+    delete AlertKit.alert.__proto__.callback;
     var noFadeIn = (AlertKit.alert.__proto__.noFadeIn == true);
     AlertKit.alert.__proto__.noFadeIn = false;
     //  enables or disables scrolling on desktop
@@ -473,14 +521,41 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     }
     //  check if buttons should be enabled
     var allowButtons = false;
-    if (buttons != null) {
+    var allowPrompt = false;
+    if (typeof buttons == "object") {
         if (buttons.length != 0) {
             for (var i = 0; i < buttons.length; i++) {
                 if (buttons[i].length != 0 && typeof buttons[i] == "object") {
                     allowButtons = true;
+                    allowPrompt = false;
                 }
             }
         }
+    }
+    if (typeof buttons.callback == "function" && buttons.toString() == "[object Object]") {
+        if (allowButtons == true) {
+            AlertKit.alert.close();
+            return false;
+        }
+        allowButtons = false;
+        allowPrompt = true;
+        if (typeof buttons.placeholder == "string")
+            buttons.placeholder = buttons.placeholder.toString().replace(/[&<>"']/g, function(m) {
+                return map[m];
+            }).replace(/\n/g, "<br>").replace(/\\<br>/g, "\n");
+        if (typeof buttons.okButtonTitle == "string")
+            buttons.okButtonTitle = buttons.okButtonTitle.toString().replace(/[&<>"']/g, function(m) {
+                return map[m];
+            }).replace(/\n/g, "<br>").replace(/\\<br>/g, "\n");
+        if (typeof buttons.cancelButtonTitle == "string")
+            buttons.cancelButtonTitle = buttons.cancelButtonTitle.toString().replace(/[&<>"']/g, function(m) {
+                return map[m];
+            }).replace(/\n/g, "<br>").replace(/\\<br>/g, "\n");
+    }
+    if (allowPrompt) {
+        AlertKit.alert.__proto__.callback = buttons.callback;
+        var promptSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><center><input id="AlertKit_prompt_type" class="` + AlertKit.__proto__.__promptInputClass + `" placeholder="` + function(buttons){ var ret = ""; typeof buttons.placeholder == "string" ? ret = buttons.placeholder : ret = ""; return ret; }(buttons) + `" style="margin: 0 25px; padding: 10px; width: calc(100% - 50px); text-align: left; border-radius: 5px; border: none; border: solid 1px black"></center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function(buttons){ var ret = ""; typeof buttons.cancelButtonTitle == "string" ? ret = buttons.cancelButtonTitle : ret = "Cancel"; return ret; }(buttons) + `</div><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptOKButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.__proto__.callback(document.getElementById('AlertKit_prompt_type').value) } catch(err) { }">` + function(buttons){ var ret = ""; typeof buttons.okButtonTitle == "string" ? ret = buttons.okButtonTitle : ret = "OK"; return ret; }(buttons) + `</div></div>`;
+        AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + promptSection;
     }
     if (allowButtons) {
         //var buttonSection = `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">`;
@@ -628,4 +703,51 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         delete AlertKit.alert.__proto__.newModalBG;
     }, 50);
     return true;
+}
+//  replaces 'static' AlertKit CSS class names printed to the DOM in <style> tags with the dynamic name
+//  control = control the daemon [string]
+//  when = interval between code repetition [number]
+AlertKit.AlertKitDaemon = function(control, when = 2500) {
+    if (typeof AlertKit.init != "undefined") {
+        return false;
+    }
+    if (typeof when != "number" || parseInt(when) < 6) {
+        when = 2500;
+    }
+    if (control == "run") {
+        for (var i = 0; i < document.getElementsByTagName("style").length; i++) {
+            for (var ii = 0; ii < AlertKit.read("names").length; ii++) {
+                document.getElementsByTagName("style")[i].innerHTML = document.getElementsByTagName("style")[i].innerHTML.replace(
+                    new RegExp(AlertKit.read("names")[ii], 'g'), AlertKit.read(ii)
+                );
+                document.getElementsByTagName("style")[i].innerHTML = document.getElementsByTagName("style")[i].innerHTML.replace(
+                    new RegExp("__" + AlertKit.read(ii), 'g'), AlertKit.read(ii)
+                );
+            }
+        }
+        return true;
+    } else if (control == "start" && AlertKit.AlertKitDaemon.running == false) {
+        AlertKit.AlertKitDaemon.running = true;
+        AlertKit.AlertKitDaemon.Daemon = setInterval(function() {
+            for (var i = 0; i < document.getElementsByTagName("style").length; i++) {
+                for (var ii = 0; ii < AlertKit.read("names").length; ii++) {
+                    document.getElementsByTagName("style")[i].innerHTML = document.getElementsByTagName("style")[i].innerHTML.replace(
+                        new RegExp(AlertKit.read("names")[ii], 'g'), AlertKit.read(ii)
+                    );
+                    document.getElementsByTagName("style")[i].innerHTML = document.getElementsByTagName("style")[i].innerHTML.replace(
+                        new RegExp("__" + AlertKit.read(ii), 'g'), AlertKit.read(ii)
+                    );
+                }
+            }
+        }, when);
+        return true;
+    } else if (control == "stop" && AlertKit.AlertKitDaemon.running == true) {
+        AlertKit.AlertKitDaemon.running = false;
+        clearInterval(AlertKit.AlertKitDaemon.Daemon);
+        return true;
+    } else if (control == "status") {
+        return AlertKit.AlertKitDaemon.started;
+    } else {
+        return false;
+    }
 }
