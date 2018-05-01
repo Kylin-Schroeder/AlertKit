@@ -1,6 +1,6 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.2.0
+//  Version 1.2.1
 //  Released 1st of May, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
@@ -38,7 +38,7 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.2.0", [1, 2, 0]],
+    value: ["1.2.1", [1, 2, 1]],
     writable: false,
     enumerable: false,
     configurable: false
@@ -522,7 +522,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     //  check if buttons should be enabled
     var allowButtons = false;
     var allowPrompt = false;
-    if (typeof buttons == "object") {
+    if (typeof buttons == "object" && buttons != null) {
         if (buttons.length != 0) {
             for (var i = 0; i < buttons.length; i++) {
                 if (buttons[i].length != 0 && typeof buttons[i] == "object") {
@@ -532,7 +532,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             }
         }
     }
-    if (typeof buttons.callback == "function" && buttons.toString() == "[object Object]") {
+    if (buttons != null && typeof buttons.callback == "function" && buttons.toString() == "[object Object]") {
         if (allowButtons == true) {
             AlertKit.alert.close();
             return false;
