@@ -10,6 +10,7 @@ A Javascript Alert Framework.
 Parameters | Type | Purpose | Default Value
 ---------- | ---- | ------------ | --------------
 `__alert`  | `boolean` | `sets alert() to AlertKit.alert() if true` | `false`
+`__prompt`  | `boolean` | `sets prompt() to AlertKit.alert() if true` | `false`
 `body_fix` | `boolean` | `sets <body>'s margin to 0 if true` | `true`
 `nef` | `boolean` | `priorities alerts yet to show up while delaying new alerts if true` | `false`
 `manualDismiss` | `boolean` | `if an alert is on screen while this is true, new alerts will be added to needsExecuted` | `false`
@@ -30,7 +31,7 @@ Parameters | Type | Purpose | Default Value
 --------- | ---- | ------------ | -------------
 `title` | `string` | `sets the title of the alert` | `null`
 `text`  | `string` | `sets the text of the alert` | `null`
-`buttons` | `array` | `creates buttons with actions. See buttons array below` | `null`
+`buttons` | `array` or `object` | `creates buttons with actions. see buttons array below` or `creates prompt with callback. see prompt object below` | `null`
 `enableClickOut` | `boolean` | `If true, the user will be able to click outside the alert to dismiss it.` | `true`
 `HTML` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n.` | `false`
 `seconds` | `number` | `sets the amount of seconds the alert will be displayed for` | `false`
@@ -41,11 +42,13 @@ Parameters | Type | Purpose | Default Value
     [
       "Button title", // This is this button title
       "alert('I was clicked!');", // This is the command you could run right when this button is clicked
-      "#007aff", // This is the background of this button
-      "#1987ff", // This is the backgorund of this button when it's :active (held on to)
+      "#007aff", // This is the background hex of this button
+      "#1987ff", // This is the background hex of this button when it's :active (held on to)
+      null, // This is this colour hex
+      null, // This is this colour hex when it's :active
       null, // This is this border css
-      null, // This is this border css when it's :active
-      null, // This is the transition css of this button
+      null, // This is this border hex when it's :active
+      null, // This is the transition transition of this button
     ],
     [
       // this is another button, same as the layout above ^
@@ -60,6 +63,26 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 ]);
 ```
 
+#### Prompt
+```js
+  {
+  placeholder: "Placeholder", // This is the input field's placeholder
+  okButtonTitle: "OK", // This is the title of the OK button
+  cancelButtonTitle: "Cancel", // This is the title of the cancel button
+  callback: function() { alert(arguments[0]); } // This is the function which handles the input
+  }
+```
+
+#### Example:
+```js
+AlertKit.alert("Example Alert", "Hello, world!", {
+  placeholder: "Write here...",
+  okButtonTitle: "Continue",
+  cancelButtonTitle: "Nevermind",
+  callback: function(input) { alert(input); }
+  });
+```
+
 ### AlertKit.alert.close
 
 `Dismisses an open alert.`
@@ -67,6 +90,19 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 #### Example: 
 ```js
 AlertKit.alert.close();
+```
+
+### AlertKit.AlertKitDaemon
+
+`Replaces 'static' AlertKit class names in the innerHTML of all <style> tags with the dynamic class name.`
+
+Parameters | Type | Purpose
+---------- | ---- | -------
+`control`  | `string` | `command to control AlertKitDaemon`
+
+#### Example: 
+```js
+AlertKit.AlertKitDaemon("start"); / AlertKit.AlertKitDaemon(AlertKit.AlertKitDaemon.DAEMON_START);
 ```
 
 ## Live Demo
