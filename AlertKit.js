@@ -1,6 +1,6 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.2.2
+//  Version 1.2.3
 //  Released 2nd of May, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
@@ -38,7 +38,7 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-	value: ["1.2.2", [1, 2, 2]],
+	value: ["1.2.3", [1, 2, 3]],
 	writable: false,
 	enumerable: false,
 	configurable: false
@@ -401,12 +401,13 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
 	}
 	//  html replacement
 	var map = {
-		'&': '&',
-		'<': '<',
-		'>': '>',
-		'"': '"',
-		"'": '''
-	};
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&apos;',
+        '`': '&#96;'
+        };
 	if (title != null && title != "") {
 		if (HTML == false) {
 			title = title.toString().replace(/[&<>"']/g, function (m) {
