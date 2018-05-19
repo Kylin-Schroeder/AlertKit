@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.2.4
-//  Released 4th of May, 2018
+//  Version 1.3.0
+//  Released 19th of May, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
 
@@ -38,13 +38,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.2.4", [1, 2, 4]],
+    value: ["1.3.0", [1, 3, 0]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [4, [5, "May"], 2018],
+    value: [19, [5, "May"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -139,6 +139,12 @@ you a DONKEY dick. Fix the problem yourself. A non-dick would submit the fix bac
     enumerable: false,
     configurable: false
 });
+AlertKit.__proto__.enterKey = function() {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            AlertKit.alert.close();
+        }
+}
 //  set up AlertKit for use
 //  __alert = overwrite alert() [bool]
 //  __prompt = overwrite prompt() [bool]
@@ -292,7 +298,8 @@ AlertKit.read = function (what) {
 //  using a prompt
 
 //  buttons = prompt [object]
-//  placeholder = field's placeholder [string]
+//  fields = array containing placeholders of fields [array]
+//  fields[...] = placeholder ("" for no placeholder) [string]
 //  cancelButtonTitle = title of cancel button [string]
 //  okButtonTitle = title of ok button [string]
 //  callback = function user input is passed to [function]
@@ -360,6 +367,9 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
     //  if an alert is already on screen, close it
     if (AlertKit.alert.__proto__.removed != true && document.body.contains(document.getElementsByClassName(AlertKit.__proto__.__alertModalClass)[document.getElementsByClassName(AlertKit.__proto__.__alertModalClass).length - 1])) {
         AlertKit.alert.close = function () {
+            try {
+                document.removeEventListener("keydown", AlertKit.__proto__.enterKey);
+            } catch(err) { void(err); }
             delete AlertKit.alert.close;
             if (typeof AlertKit.alert.__proto__.closeAlert != "undefined") {
                 clearTimeout(AlertKit.alert.__proto__.closeAlert);
@@ -398,6 +408,10 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
             clearTimeout(AlertKit.alert.__proto__.closeAlert);
             delete AlertKit.alert.__proto__.closeAlert;
         }, seconds * 1000);
+    }
+    //  enter to close
+    if (buttons == null) {
+        document.addEventListener("keydown", AlertKit.__proto__.enterKey);
     }
     //  html replacement
     var map = {
@@ -442,6 +456,9 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
     AlertKit.alert.__proto__.modal = document.createElement("div");
     //  set up the close function
     AlertKit.alert.close = function () {
+        try {
+            document.removeEventListener("keydown", AlertKit.__proto__.enterKey);
+        } catch(err) { void(err); }
         delete AlertKit.alert.close;
         if (typeof AlertKit.alert.__proto__.closeAlert != "undefined") {
             clearTimeout(AlertKit.alert.__proto__.closeAlert);
@@ -540,37 +557,43 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
             }
         }
     }
-    if (buttons != null && typeof buttons.callback == "function" && buttons.toString() == "[object Object]") {
+    if (buttons != null && typeof buttons.callback == "function" && buttons.toString() == "[object Object]" && typeof buttons.fields == "object" && buttons.fields.length > 0) {
         if (allowButtons == true) {
             AlertKit.alert.close();
             return false;
         }
         allowButtons = false;
         allowPrompt = true;
-        if (typeof buttons.placeholder == "string")
-            buttons.placeholder = buttons.placeholder.toString().replace(/[&<>"']/g, function (m) {
-                return map[m];
-            }).replace(/\n/g, "<br>").replace(/\\<br>/g, "\n");
+        for (var i = 0; i < buttons.fields.length; i++) {
+            if (typeof buttons.fields[i] == "string")
+                buttons.fields[i] = buttons.fields[i].toString().replace(/[&<>"']/g, function (m) {
+                    return map[m];
+                });
+        }
         if (typeof buttons.okButtonTitle == "string")
             buttons.okButtonTitle = buttons.okButtonTitle.toString().replace(/[&<>"']/g, function (m) {
                 return map[m];
-            }).replace(/\n/g, "<br>").replace(/\\<br>/g, "\n");
+            });
         if (typeof buttons.cancelButtonTitle == "string")
             buttons.cancelButtonTitle = buttons.cancelButtonTitle.toString().replace(/[&<>"']/g, function (m) {
                 return map[m];
-            }).replace(/\n/g, "<br>").replace(/\\<br>/g, "\n");
+            });
     }
     if (allowPrompt) {
         AlertKit.alert.__proto__.callback = buttons.callback;
-        var promptSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><center><input id="AlertKit_prompt_type" class="` + AlertKit.__proto__.__promptInputClass + `" placeholder="` + function (buttons) {
-            var ret = "";
-            typeof buttons.placeholder == "string" ? ret = buttons.placeholder : ret = "";
-            return ret;
-        }(buttons) + `" style="margin: 0 25px; padding: 10px; width: calc(100% - 50px); text-align: left; border-radius: 5px; border: none; border: solid 1px black"></center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
+        var inputs = "";
+        for (var i = 0; i < buttons.fields.length; i++) {
+            inputs += `<input class="` + AlertKit.__proto__.__promptInputClass + `" placeholder="` + function (buttons) {
+                var ret = "";
+                typeof buttons.fields[i] == "string" ? ret = buttons.fields[i] : ret = "";
+                return ret;
+            }(buttons) + `" style="display: block; margin: 5px 25px; padding: 10px; width: calc(100% - 50px); text-align: left; border-radius: 5px; border: none; border: solid 1px black">`;
+        }
+        var promptSection = `<div style="max-height: 21vh !important; padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: scroll; white-space: nowrap;"><center id="AlertKit_prompt_fields">` + inputs + `</center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
             var ret = "";
             typeof buttons.cancelButtonTitle == "string" ? ret = buttons.cancelButtonTitle : ret = "Cancel";
             return ret;
-        }(buttons) + `</div><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptOKButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.__proto__.callback(document.getElementById('AlertKit_prompt_type').value) } catch(err) { }">` + function (buttons) {
+        }(buttons) + `</div><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptOKButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { var AlertKit_Callback_Array = []; for(var i = 0; i < document.getElementById('AlertKit_prompt_fields').children.length; i++) { AlertKit_Callback_Array[AlertKit_Callback_Array.length] = document.getElementById('AlertKit_prompt_fields').children[i].value; }; AlertKit.alert.__proto__.callback(AlertKit_Callback_Array); } catch(err) { }">` + function (buttons) {
             var ret = "";
             typeof buttons.okButtonTitle == "string" ? ret = buttons.okButtonTitle : ret = "OK";
             return ret;
@@ -580,7 +603,7 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
     if (allowButtons) {
         //var buttonSection = `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">`;
         //  firefox fix
-        var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div>`;
+        var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: hidden; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div>`;
         //  store the onclicks
         AlertKit.__proto__.__AlertKit_button_functions = new Array();
         //  add the buttons
