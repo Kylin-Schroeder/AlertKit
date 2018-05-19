@@ -44,10 +44,10 @@ Parameters | Type | Purpose | Default Value
       "alert('I was clicked!');", // This is the command you could run right when this button is clicked
       "#007aff", // This is the background hex of this button
       "#1987ff", // This is the background hex of this button when it's :active (held on to)
-      null, // This is this colour hex
-      null, // This is this colour hex when it's :active
-      null, // This is this border css
-      null, // This is this border hex when it's :active
+      null, // This is the colour hex
+      null, // This is the colour hex when it's :active
+      null, // This is the border css
+      null, // This is the border hex when it's :active
       null, // This is the transition transition of this button
     ],
     [
@@ -66,7 +66,7 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 #### Prompt
 ```js
   {
-  placeholder: "Placeholder", // This is the input field's placeholder
+  fields: ["Type here"], // This is the input field's placeholder
   okButtonTitle: "OK", // This is the title of the OK button
   cancelButtonTitle: "Cancel", // This is the title of the cancel button
   callback: function() { alert(arguments[0]); } // This is the function which handles the input
