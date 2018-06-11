@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.3.0
-//  Released 19th of May, 2018
+//  Version 1.4.0
+//  Released 11th of June, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
 
@@ -38,13 +38,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.3.0", [1, 3, 0]],
+    value: ["1.4.0", [1, 4, 0]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [19, [5, "May"], 2018],
+    value: [11, [6, "June"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -305,9 +305,10 @@ AlertKit.read = function (what) {
 //  callback = function user input is passed to [function]
 
 //  enableClickOut = dictates whether the alert's background can be clicked to close the alert [bool]
+//  enterKey = dictates whether the enter key can be pressed to close the alert or submit a prompt [bool]
 //  HTML = dictates whether HTML is allowed within the alert's title / text [bool]
 //  seconds = amount of time the alert will be shown for [int]
-AlertKit.alert = function (title = null, text = null, buttons = null, enableClickOut = true, HTML = false, seconds = false) {
+AlertKit.alert = function (title = null, text = null, buttons = null, enableClickOut = true, enterKey_ = true, HTML = false, seconds = false) {
     delete AlertKit.alert.__proto__.callback;
     var noFadeIn = (AlertKit.alert.__proto__.noFadeIn == true);
     AlertKit.alert.__proto__.noFadeIn = false;
@@ -411,7 +412,14 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
     }
     //  enter to close
     if (buttons == null) {
-        document.addEventListener("keydown", AlertKit.__proto__.enterKey);
+        AlertKit.__proto__.enterKey = function() {
+            if (event.key === "Enter") {
+               event.preventDefault();
+               AlertKit.alert.close();
+            }
+        }
+        if (enterKey_ == true)
+           document.addEventListener("keydown", AlertKit.__proto__.enterKey);
     }
     //  html replacement
     var map = {
@@ -599,6 +607,14 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
             return ret;
         }(buttons) + `</div></div>`;
         AlertKit.alert.__proto__.modal.innerHTML = AlertKit.alert.__proto__.modal.innerHTML + promptSection;
+        AlertKit.__proto__.enterKey = function() {
+            if (event.key === "Enter") {
+               event.preventDefault();
+               try { var AlertKit_Callback_Array = []; for(var i = 0; i < document.getElementById('AlertKit_prompt_fields').children.length; i++) { AlertKit_Callback_Array[AlertKit_Callback_Array.length] = document.getElementById('AlertKit_prompt_fields').children[i].value; }; AlertKit.alert.__proto__.callback(AlertKit_Callback_Array); } catch(err) { }
+            }
+        }
+        if (enterKey_ == true)
+            document.addEventListener("keydown", AlertKit.__proto__.enterKey);
     }
     if (allowButtons) {
         //var buttonSection = `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">`;
