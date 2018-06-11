@@ -29,11 +29,12 @@ Parameters | Type | Purpose
 
 Parameters | Type | Purpose | Default Value
 --------- | ---- | ------------ | -------------
-`title` | `string` | `sets the title of the alert` | `null`
-`text`  | `string` | `sets the text of the alert` | `null`
+`title` | `string` | `Sets the title of the alert` | `null`
+`text`  | `string` | `Sets the text of the alert` | `null`
 `buttons` | `array` or `object` | `creates buttons with actions. see buttons array below` or `creates prompt with callback. see prompt object below` | `null`
-`enableClickOut` | `boolean` | `If true, the user will be able to click outside the alert to dismiss it.` | `true`
-`HTML` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n.` | `false`
+`enableClickOut` | `boolean` | `If true, the user will be able to click outside the alert to dismiss it` | `true`
+`enterKey_` | `boolean` | `If true, the user will be able to press the enter key to dismiss an alert without buttons or submit a prompt` | `true`
+`HTML` | `boolean` | `if true, html will be allowed in the alert's title and text. If false you will not be able to write html in title or text. To leave a new line if this is false, use \n` | `false`
 `seconds` | `number` | `sets the amount of seconds the alert will be displayed for` | `false`
 
 #### Buttons
@@ -76,7 +77,7 @@ AlertKit.alert("Example Alert", "Hello, world!", [
 #### Example:
 ```js
 AlertKit.alert("Example Alert", "Hello, world!", {
-  placeholder: "Write here...",
+  fields: ["Type here..."],
   okButtonTitle: "Continue",
   cancelButtonTitle: "Nevermind",
   callback: function(input) { alert(input); }
