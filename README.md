@@ -1,5 +1,5 @@
 # AlertKit
-A Javascript Alert Framework.
+A JavaScript Alert Framework.
 
 ## Functions
 
