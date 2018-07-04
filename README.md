@@ -103,7 +103,7 @@ Parameters | Type | Purpose
 
 #### Example: 
 ```js
-AlertKit.AlertKitDaemon("start"); / AlertKit.AlertKitDaemon(AlertKit.AlertKitDaemon.DAEMON_START);
+AlertKit.AlertKitDaemon(AlertKit.AlertKitDaemon.DAEMON_START);
 ```
 
 ## Live Demo
