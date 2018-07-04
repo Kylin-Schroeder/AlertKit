@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.4.0
-//  Released 11th of June, 2018
+//  Version 1.4.1
+//  Released 4th of July, 2018
 /*
 # DON'T BE A DICK PUBLIC LICENSE
 
@@ -38,13 +38,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.4.0", [1, 4, 0]],
+    value: ["1.4.1", [1, 4, 1]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [11, [6, "June"], 2018],
+    value: [4, [7, "July"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -219,11 +219,11 @@ AlertKit.init = function (__alert = false, __prompt = false, body_fix = true, ne
     document.head.innerHTML += AlertKit.buttonStyles;
     delete AlertKit.buttonStyles;
     AlertKit.alert.__proto__.executable = true;
-    __alert ? (window.alert = function (a, b, c, d, e, f) {
-        return AlertKit.alert(a, b, c, d, e, f);
+    __alert ? (window.alert = function (a, b, c, d, e, f, g) {
+        return AlertKit.alert(a, b, c, d, e, f, g);
     }) : void(0);
-    __prompt ? (window.prompt = function (a, b, c, d, e, f) {
-        return AlertKit.alert(a, b, c, d, e, f);
+    __prompt ? (window.prompt = function (a, b, c, d, e, f, g) {
+        return AlertKit.alert(a, b, c, d, e, f, g);
     }) : void(0);
     AlertKit.alert.__proto__.needsExecuted = [];
     if (nef != false)
@@ -308,7 +308,7 @@ AlertKit.read = function (what) {
 //  enterKey = dictates whether the enter key can be pressed to close the alert or submit a prompt [bool]
 //  HTML = dictates whether HTML is allowed within the alert's title / text [bool]
 //  seconds = amount of time the alert will be shown for [int]
-AlertKit.alert = function (title = null, text = null, buttons = null, enableClickOut = true, enterKey_ = true, HTML = false, seconds = false) {
+AlertKit.alert = function(title = null, text = null, buttons = null, enableClickOut = true, enterKey_ = true, HTML = false, seconds = false) {
     delete AlertKit.alert.__proto__.callback;
     var noFadeIn = (AlertKit.alert.__proto__.noFadeIn == true);
     AlertKit.alert.__proto__.noFadeIn = false;
@@ -384,7 +384,7 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
                 if (AlertKit.alert.__proto__.needsExecuted.length > 0 && AlertKit.alert.__proto__.needsExecutedFirst === true) {
                     var args = [AlertKit.alert.__proto__.needsExecuted[0][0], AlertKit.alert.__proto__.needsExecuted[0][1], AlertKit.alert.__proto__.needsExecuted[0][2], AlertKit.alert.__proto__.needsExecuted[0][3], AlertKit.alert.__proto__.needsExecuted[0][4], AlertKit.alert.__proto__.needsExecuted[0][5]];
                     AlertKit.alert.__proto__.needsExecuted.shift();
-                    AlertKit.alert(args[0], args[1], args[2], args[3], args[4], args[5]);
+                    AlertKit.alert(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
                 }
             }, 500);
             if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
@@ -394,8 +394,8 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
         AlertKit.alert.close();
         AlertKit.alert.__proto__.removed = true;
         setTimeout(function () {
-            //  call ourself now that the previous alert was cleaned up 
-            AlertKit.alert(title, text, buttons, enableClickOut, HTML, seconds);
+            //  call ourself now that the previous alert was cleaned up
+            AlertKit.alert(title, text, buttons, enableClickOut, enterKey_, HTML, seconds);
         }, 500);
         return;
     }
@@ -485,7 +485,7 @@ AlertKit.alert = function (title = null, text = null, buttons = null, enableClic
                 AlertKit.alert.__proto__.noFadeIn = true;
                 var args = [AlertKit.alert.__proto__.needsExecuted[0][0], AlertKit.alert.__proto__.needsExecuted[0][1], AlertKit.alert.__proto__.needsExecuted[0][2], AlertKit.alert.__proto__.needsExecuted[0][3], AlertKit.alert.__proto__.needsExecuted[0][4], AlertKit.alert.__proto__.needsExecuted[0][5]];
                 AlertKit.alert.__proto__.needsExecuted.shift(0);
-                AlertKit.alert(args[0], args[1], args[2], args[3], args[4], args[5]);
+                AlertKit.alert(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
             }
         }, 500);
         if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
