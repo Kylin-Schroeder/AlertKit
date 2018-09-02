@@ -1,6 +1,6 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.5.0
+//  Version 1.5.1
 //  Released 2nd of September, 2018
 
 //  this code needs a *major* cleanup; it works but it's really not future-proof
@@ -41,7 +41,7 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.5.0", [1, 4, 1]],
+    value: ["1.5.1", [1, 5, 1]],
     writable: false,
     enumerable: false,
     configurable: false
@@ -394,6 +394,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
                 delete AlertKit.__proto__.__AlertKit_button_functions;
             }
+           AlertKit.alert.closed();
         }
         AlertKit.alert.close();
         AlertKit.alert.__proto__.removed = true;
@@ -495,6 +496,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         if (typeof AlertKit.__proto__.__AlertKit_button_functions != "undefined") {
             delete AlertKit.__proto__.__AlertKit_button_functions;
         }
+       AlertKit.alert.closed();
     }
     if ((title == null || title == "") && (text == null || text == "") && (buttons == null || typeof buttons != "object" || buttons.toString() == "")) {
         AlertKit.alert.close();
@@ -808,6 +810,9 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     }, 50);
     return true;
 }
+
+AlertKit.alert.closed = function () {}
+
 //  replaces 'static' AlertKit CSS class names printed to the DOM in <style> tags with the dynamic name
 //  control = control the daemon [string]
 //  when = interval between code repetition [number]
