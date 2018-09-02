@@ -1,7 +1,10 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.4.1
-//  Released 4th of July, 2018
+//  Version 1.5.0
+//  Released 2nd of September, 2018
+
+//  this code needs a *major* cleanup; it works but it's really not future-proof
+
 /*
 # DON'T BE A DICK PUBLIC LICENSE
 
@@ -38,13 +41,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.4.1", [1, 4, 1]],
+    value: ["1.5.0", [1, 4, 1]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [4, [7, "July"], 2018],
+    value: [2, [9, "September"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -195,6 +198,7 @@ AlertKit.init = function (__alert = false, __prompt = false, body_fix = true, ne
     AlertKit.__proto__.__promptCancelButtonClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__promptOKButtonClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__promptInputClass = __AlertKitRandomNumberGenerator(15);
+    AlertKit.__proto__.__promptMultiChoiceInputClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.__proto__.__promptButtonContainerClass = __AlertKitRandomNumberGenerator(15);
     AlertKit.AlertKitDaemon.DAEMON_START = "start";
     AlertKit.AlertKitDaemon.DAEMON_STOP = "stop";
@@ -536,6 +540,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     AlertKit.alert.__proto__.modal.style.background = "white";
     AlertKit.alert.__proto__.modal.style.position = "fixed";
     AlertKit.alert.__proto__.modal.className = AlertKit.__proto__.__alertModalInnerClass;
+    AlertKit.alert.__proto__.modal.style.overflow = "-moz-scrollbars-none";
     AlertKit.alert.__proto__.modal.innerHTML = "";
     //  add some html
     if (title != null && title != "") {
@@ -573,10 +578,19 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         allowButtons = false;
         allowPrompt = true;
         for (var i = 0; i < buttons.fields.length; i++) {
-            if (typeof buttons.fields[i] == "string")
+            if (typeof buttons.fields[i] == "string") {
                 buttons.fields[i] = buttons.fields[i].toString().replace(/[&<>"']/g, function (m) {
                     return map[m];
-                });
+                })
+            } else if (typeof buttons.fields[i] == "object") {
+              for (var ii = 0; ii < buttons.fields[i].length; ii++) {
+                if (typeof buttons.fields[i][ii] == "string") {
+                    buttons.fields[i][ii] = buttons.fields[i][ii].toString().replace(/[&<>"']/g, function (m) {
+                        return map[m];
+                    })
+                }
+              }
+            }
         }
         if (typeof buttons.okButtonTitle == "string")
             buttons.okButtonTitle = buttons.okButtonTitle.toString().replace(/[&<>"']/g, function (m) {
@@ -591,11 +605,27 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
         AlertKit.alert.__proto__.callback = buttons.callback;
         var inputs = "";
         for (var i = 0; i < buttons.fields.length; i++) {
+          if (typeof buttons.fields[i] == "string") {
             inputs += `<input class="` + AlertKit.__proto__.__promptInputClass + `" placeholder="` + function (buttons) {
                 var ret = "";
                 typeof buttons.fields[i] == "string" ? ret = buttons.fields[i] : ret = "";
                 return ret;
             }(buttons) + `" style="display: block; margin: 5px 25px; padding: 10px; width: calc(100% - 50px); text-align: left; border-radius: 5px; border: none; border: solid 1px black">`;
+          } else if (typeof buttons.fields[i] == "object") {
+            inputs += `<select class="` + AlertKit.__proto__.__promptMultiChoiceInputClass + `" style="display: block; margin: 5px 25px; padding: 10px; width: calc(100% - 50px); text-align: left; border-radius: 5px; border: none; border: solid 1px black">
+              ` + function (buttons) {
+                var ret = "";
+                for (var ii = 0; ii < buttons.fields[i].length; ii++) {
+                  ret += `<option value="`
+                  typeof buttons.fields[i][ii] == "string" ? ret += buttons.fields[i][ii] : ret += "";
+                  ret += `">`;
+                  typeof buttons.fields[i][ii] == "string" ? ret += buttons.fields[i][ii] : ret += "";
+                  ret += `</option>`;
+                }
+                return ret;
+              }(buttons) + `
+            </select>`;
+          }
         }
         var promptSection = `<div style="max-height: 21vh !important; padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: scroll; white-space: nowrap;"><center id="AlertKit_prompt_fields">` + inputs + `</center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
             var ret = "";
