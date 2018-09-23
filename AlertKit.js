@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
 //  Version 1.5.1
-//  Released 2nd of September, 2018
+//  Released 3rd of September, 2018
 
 //  this code needs a *major* cleanup; it works but it's really not future-proof
 
@@ -41,13 +41,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.5.1", [1, 5, 1]],
+    value: ["1.5.2", [1, 5, 2]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [2, [9, "September"], 2018],
+    value: [23, [9, "September"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
@@ -629,7 +629,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             </select>`;
           }
         }
-        var promptSection = `<div style="max-height: 21vh !important; padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: scroll; white-space: nowrap;"><center id="AlertKit_prompt_fields">` + inputs + `</center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
+        var promptSection = `<div style="max-height: 21vh !important; padding: 20px 0; border-top: solid black 1px; overflow-x: hidden; overflow-y: scroll; white-space: nowrap;"><center id="AlertKit_prompt_fields">` + inputs + `</center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
             var ret = "";
             typeof buttons.cancelButtonTitle == "string" ? ret = buttons.cancelButtonTitle : ret = "Cancel";
             return ret;
@@ -651,7 +651,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
     if (allowButtons) {
         //var buttonSection = `<div style="padding: 20px; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">`;
         //  firefox fix
-        var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: hidden; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div>`;
+        var buttonSection = `<div style="padding: 20px 0; border-top: solid black 1px; overflow-x: scroll; overflow-y: hidden; white-space: nowrap;"><div style="width: 20px; display: inline-block; -webkit-user-select: none;"></div>`;
         //  store the onclicks
         AlertKit.__proto__.__AlertKit_button_functions = new Array();
         //  add the buttons
