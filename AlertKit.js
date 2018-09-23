@@ -629,7 +629,7 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
             </select>`;
           }
         }
-        var promptSection = `<div style="max-height: 21vh !important; padding: 20px 0; border-top: solid black 1px; overflow-x: hidden; overflow-y: scroll; white-space: nowrap;"><center id="AlertKit_prompt_fields">` + inputs + `</center><br><div style="display: flex; flex-flow: row wrap; position: relative; margin: 0 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
+        var promptSection = `<div style="max-height: 21vh !important; padding: 20px 0; border-top: solid black 1px; overflow-x: hidden; overflow-y: scroll; white-space: nowrap;"><center id="AlertKit_prompt_fields">` + inputs + `</center><div style="display: flex; flex-flow: row wrap; position: relative; margin: 20px" class="` + AlertKit.__proto__.__promptButtonContainerClass + `"><div class="` + AlertKit.__proto__.__buttonClass + ` ` + AlertKit.__proto__.__promptCancelButtonClass + `" style="flex: 1 1 calc(20% - 35px); text-align: center" ontouchstart="" onclick="try { AlertKit.alert.close() } catch(err) { }">` + function (buttons) {
             var ret = "";
             typeof buttons.cancelButtonTitle == "string" ? ret = buttons.cancelButtonTitle : ret = "Cancel";
             return ret;
