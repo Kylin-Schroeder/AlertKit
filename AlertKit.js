@@ -762,14 +762,14 @@ AlertKit.alert = function(title = null, text = null, buttons = null, enableClick
                         }
                         //  put it all together to get the button
                         buttonSection = buttonSection + `<style>.__b_custom` + __randnum__ + ` { -webkit-user-select: none; transition: ` + __transition__ + `; border: solid 1px ` + __border__ + ` !important; background: ` + __background__ + ` !important; color: ` + __colour__ + ` !important; } .__b_custom` + __randnum__ + `:active { -webkit-user-select: none; transition: ` + __transition__ + `; border: solid 1px ` + __selectedBorder__ + ` !important; background: ` + __selectedBackground__ + ` !important; color: ` + __selectedColour__ + ` !important; }</style>`;
-                        buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + ` __b_custom` + __randnum__ + `" ontouchstart="" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `](this, ` + i + `) } catch(err) { console.error('%c[ERROR]%cAlertKit encountered an unexpected error. (' + err + ')'); }">` + buttons[i][0] + `</div>`;
+                        buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + ` __b_custom` + __randnum__ + `" ontouchstart="" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `](this, ` + i + `) } catch(err) { console.error('[ERROR] AlertKit encountered an unexpected error. (' + err + ')'); }">` + buttons[i][0] + `</div>`;
                     } else {
                         //  if you didnt style the button, use the default style
                         buttonSection = buttonSection + `<div class="` + AlertKit.__proto__.__buttonClass + `" ontouchstart="" onclick="try { AlertKit.__proto__.__AlertKit_button_functions[` + i + `](this, ` + i + `) } catch(err) { }">` + buttons[i][0] + `</div>`;
                     }
                 })();
             } catch (err) {
-                console.error('%c[ERROR]%cAlertKit encountered an unexpected error. (' + err + ')');
+                console.error('[ERROR] AlertKit encountered an unexpected error. (' + err + ')');
             }
         }
         //buttonSection = buttonSection + "</div>";
