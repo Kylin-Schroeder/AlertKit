@@ -6,7 +6,15 @@
 </head>
 
 <body>
-    <script>AlertKit.init(prompt("__alert [0 = false / 1 = true]"), prompt("__prompt [0 = false / 1 = true]"), prompt("body_fix [0 = false / 1 = true]"), prompt("nef [0 = false / 1 = true]"), prompt("manualDismiss [0 = false / 1 = true]"), prompt("daemon [0 = false / 1 = true]"));</script>
+    <script>
+        var alert_state = prompt("Welcome to the AlertKit demo! The following prompts will help you to customize AlertKit's settings before running.\n__alert sets alert() to AlertKit.alert() if true.\n__alert [0 = false / 1 = true]");
+        var prompt_state = prompt("__prompt sets prompt() to AlertKit.alert() if true\n__prompt [0 = false / 1 = true]");
+        var body_fix_state = prompt("body_fix sets <body>'s margin to 0 if true\nbody_fix [0 = false / 1 = true]");
+        var nef_state = prompt("nef priorities alerts yet to show up while delaying new alerts if true\nnef [0 = false / 1 = true]")
+        var manual_dismiss_state = prompt("If an alert is on screen while this is true, new alerts will be added to needsExecuted\nmanualDismiss [0 = false / 1 = true]")
+        var daemon_state = prompt("The daemon replaces 'static' AlertKit class names in the innerHTML of all <style> tags with the dynamic class name. Determine whether it should be initialized on launch.\ndaemon [0 = false / 1 = true]")
+        AlertKit.init(alert_state, prompt_state, body_fix_state, nef_state, manual_dismiss_state, daemon_state);
+    </script>
     <style>
         .m {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
