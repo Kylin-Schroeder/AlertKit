@@ -1,7 +1,7 @@
 //  AlertKit by 1GamerDev
 //  Licensed uander DBAD 1.1
-//  Version 1.5.1
-//  Released 3rd of September, 2018
+//  Version 1.5.3
+//  Released 1st of October, 2018
 
 //  this code needs a *major* cleanup; it works but it's really not future-proof
 
@@ -41,13 +41,13 @@ var AlertKit = {
 };
 //  info & license
 Object.defineProperty(AlertKit["information"], "version", {
-    value: ["1.5.2", [1, 5, 2]],
+    value: ["1.5.3", [1, 5, 3]],
     writable: false,
     enumerable: false,
     configurable: false
 });
 Object.defineProperty(AlertKit["information"], "release", {
-    value: [23, [9, "September"], 2018],
+    value: [1, [10, "October"], 2018],
     writable: false,
     enumerable: false,
     configurable: false
