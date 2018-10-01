@@ -9,11 +9,12 @@ A JavaScript Alert Framework.
 
 Parameters | Type | Purpose | Default Value
 ---------- | ---- | ------------ | --------------
-`__alert`  | `boolean` | `sets alert() to AlertKit.alert() if true` | `false`
-`__prompt`  | `boolean` | `sets prompt() to AlertKit.alert() if true` | `false`
-`body_fix` | `boolean` | `sets <body>'s margin to 0 if true` | `true`
-`nef` | `boolean` | `priorities alerts yet to show up while delaying new alerts if true` | `false`
-`manualDismiss` | `boolean` | `if an alert is on screen while this is true, new alerts will be added to needsExecuted` | `false`
+`__alert`  | `boolean` | `Sets alert() to AlertKit.alert() if true` | `false`
+`__prompt`  | `boolean` | `Sets prompt() to AlertKit.alert() if true` | `false`
+`body_fix` | `boolean` | `Sets <body>'s margin to 0 if true` | `true`
+`nef` | `boolean` | `Priorities alerts yet to show up while delaying new alerts if true` | `false`
+`manualDismiss` | `boolean` | `If an alert is on screen while this is true, new alerts will be added to needsExecuted` | `false`
+`daemon` | `boolean` | `Starts up [AlertKitDaemon](https://github.com/1GamerDev/AlertKit#alertkitalertkitdaemon) on start` | `false`
 
 ### AlertKit.read
 
