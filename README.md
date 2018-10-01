@@ -14,7 +14,7 @@ Parameters | Type | Purpose | Default Value
 `body_fix` | `boolean` | `Sets <body>'s margin to 0 if true` | `true`
 `nef` | `boolean` | `Priorities alerts yet to show up while delaying new alerts if true` | `false`
 `manualDismiss` | `boolean` | `If an alert is on screen while this is true, new alerts will be added to needsExecuted` | `false`
-`daemon` | `boolean` | `Starts up [AlertKitDaemon](https://github.com/1GamerDev/AlertKit#alertkitalertkitdaemon) on start` | `false`
+`daemon` | `boolean` | `Starts up` [`AlertKitDaemon`](https://github.com/1GamerDev/AlertKit#alertkitalertkitdaemon) `on start` | `false`
 
 ### AlertKit.read
 
